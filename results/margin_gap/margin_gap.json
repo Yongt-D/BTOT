@@ -1,0 +1,98 @@
+{
+ "s42": {
+  "WHU_CD": {
+   "gated_coverage": 0.9091445642506356,
+   "gated_change_share": 0.03267875839175473,
+   "margin_lowest_bin_share": 0.0,
+   "margin": {
+    "auroc": 0.9967196810050217,
+    "ap": 0.9726382276984912,
+    "oracle_iou": 0.866043503841509,
+    "oracle_thr": -0.3850000000000051,
+    "iou_at_whu_thr": 0.866043503841509,
+    "whu_thr": -0.3850000000000051,
+    "change_share_at_gated_coverage": 0.012899388461472795
+   },
+   "mass": {
+    "auroc": 0.976831188233268,
+    "ap": 0.8907906979112321,
+    "oracle_iou": 0.7180424470076274,
+    "oracle_thr": 0.3987,
+    "iou_at_whu_thr": 0.7180424470076274,
+    "whu_thr": 0.3987,
+    "change_share_at_gated_coverage": 0.07560596671122581
+   }
+  },
+  "LEVIR_CD": {
+   "gated_coverage": 0.8802980110049248,
+   "gated_change_share": 0.29047120807838767,
+   "margin_lowest_bin_share": 0.0,
+   "margin": {
+    "auroc": 0.9588884242386166,
+    "ap": 0.6952659036529265,
+    "oracle_iou": 0.46225659156284926,
+    "oracle_thr": -8.935000000000002,
+    "iou_at_whu_thr": 0.24826737796126222,
+    "whu_thr": -0.3850000000000051,
+    "change_share_at_gated_coverage": 0.1282208861725883
+   },
+   "mass": {
+    "auroc": 0.8913605587586624,
+    "ap": 0.4831706318259128,
+    "oracle_iou": 0.33322172363466573,
+    "oracle_thr": 0.28190000000000004,
+    "iou_at_whu_thr": 0.22454057332266783,
+    "whu_thr": 0.3987,
+    "change_share_at_gated_coverage": 0.2958688707000493
+   }
+  }
+ },
+ "s456": {
+  "WHU_CD": {
+   "gated_coverage": 0.8912156472994587,
+   "gated_change_share": 0.03357763189284394,
+   "margin_lowest_bin_share": 0.0,
+   "margin": {
+    "auroc": 0.9967779863862472,
+    "ap": 0.9760018228290164,
+    "oracle_iou": 0.8796806341590904,
+    "oracle_thr": -2.230000000000004,
+    "iou_at_whu_thr": 0.8796806341590904,
+    "whu_thr": -2.230000000000004,
+    "change_share_at_gated_coverage": 0.009962822259762444
+   },
+   "mass": {
+    "auroc": 0.9756456930567765,
+    "ap": 0.8927264496593444,
+    "oracle_iou": 0.7274786342155534,
+    "oracle_thr": 0.39890000000000003,
+    "iou_at_whu_thr": 0.7274786342155534,
+    "whu_thr": 0.39890000000000003,
+    "change_share_at_gated_coverage": 0.062453250964281774
+   }
+  },
+  "LEVIR_CD": {
+   "gated_coverage": 0.8487299233675003,
+   "gated_change_share": 0.34108003563925726,
+   "margin_lowest_bin_share": 0.0,
+   "margin": {
+    "auroc": 0.8921387346838264,
+    "ap": 0.4557298143740684,
+    "oracle_iou": 0.2878325104878053,
+    "oracle_thr": -11.760000000000005,
+    "iou_at_whu_thr": 0.14370176349947378,
+    "whu_thr": -2.230000000000004,
+    "change_share_at_gated_coverage": 0.26780485693108086
+   },
+   "mass": {
+    "auroc": 0.8511254602815616,
+    "ap": 0.36989734090164106,
+    "oracle_iou": 0.25045240403808977,
+    "oracle_thr": 0.2817,
+    "iou_at_whu_thr": 0.17178929201408685,
+    "whu_thr": 0.39890000000000003,
+    "change_share_at_gated_coverage": 0.34359385521171487
+   }
+  }
+ }
+}

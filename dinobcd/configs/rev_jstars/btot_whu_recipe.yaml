@@ -1,0 +1,161 @@
+model:
+  name: DinoBCD
+  backbone_type: efficient
+  dino_weights: dinov3/weights/dinov3_vitl16_pretrain_sat493m-eadcf0ff.pth
+  dino_extract_layers:
+  - 1
+  - 3
+  - 5
+  - 8
+  - 11
+  - 14
+  - 17
+  - 20
+  - 23
+  adapter_type: dual
+  num_classes: 2
+  pyramid_channels: 256
+  use_boundary_refine: true
+  use_cadi: false
+  use_sgda: false
+  use_msca: false
+  use_sgbd: false
+  use_sgbd_gate: false
+  use_cosine_weight: false
+  use_hfa: true
+  use_lgati: false
+  use_pfti: false
+  use_efficient_lmm: true
+  head_dropout: 0.1
+  use_deep_supervision: false
+  use_sgce: false
+  use_hbca: false
+  inference_threshold: 0.5
+  hbca_config:
+    attn_dim: 64
+    num_heads: 4
+    window_size: 8
+    share_weights: false
+    use_shifted: false
+  lora:
+    enable: false
+  backbone_unfreeze:
+    enable: true
+    num_blocks: 3
+  sgda_config:
+    num_virtual_neighbors: 16
+    num_local_points: 9
+    offset_range: 8.0
+  use_btot: true
+data:
+  dataset: WHU_CD
+  data_root: data_dir/WHU-CD
+  train_list: train.txt
+  val_list: val.txt
+  test_list: test.txt
+  augmentation:
+    train:
+      random_flip: true
+      random_rotate: true
+      temporal_swap: false
+      rotation_angle: 5
+      random_scale:
+      - 0.75
+      - 1.25
+      gaussian_noise: 0.02
+      color_jitter:
+        brightness: 0.2
+        contrast: 0.2
+        saturation: 0.2
+        hue: 0.0
+    val:
+      enable: false
+  image_size: 256
+  batch_size: 4
+  num_workers: 4
+  pin_memory: true
+training:
+  num_epochs: 150
+  gradient_accumulation_steps: 2
+  optimizer:
+    type: AdamW
+    lr: 0.0004
+    backbone_lr: 6.0e-06
+    weight_decay: 0.00055
+    betas:
+    - 0.9
+    - 0.999
+  scheduler:
+    type: CosineAnnealingLR
+    T_max: 100
+    eta_min: 1.0e-07
+    warmup_epochs: 5
+  two_phase:
+    enable: false
+    phase2_ratio: 0.1
+    phase2_lr_scale: 0.2
+  swa:
+    enable: true
+    start_epoch: 100
+    lr: 1.0e-05
+  ema:
+    enable: false
+    decay: 0.9998
+    warmup_steps: 2000
+  grad_clip:
+    enable: true
+    max_norm: 1.0
+  loss:
+    focal_gamma: 2.0
+    focal_weight: 1.0
+    dice_weight: 1.5
+    use_edge_loss: true
+    edge_loss_weight: 0.12
+    auto_alpha: false
+    focal_alpha: 0.65
+    use_adaptive_dice: true
+    use_pr_monitor: true
+    pr_window_size: 100
+    use_tversky: true
+    tversky_alpha: 0.3
+    tversky_beta: 0.7
+    tversky_weight: 1.0
+    label_smoothing: 0.0
+    ohem_ratio: 0.0
+    fccr:
+      enable: false
+      weight: 0.1
+      pull_weight: 1.0
+      push_weight: 1.0
+      push_margin: -0.3
+      pull_threshold: 0.5
+      warmup_epochs: 5
+  val_interval: 1
+  save_interval: 5
+  early_stopping:
+    enable: false
+device:
+  gpu_ids:
+  - 0
+  use_amp: false
+  deterministic: false
+logging:
+  log_dir: logs/v6btot_whu_s42_seed42
+  save_dir: checkpoints/v6btot_whu_s42_seed42
+  tensorboard: true
+  print_freq: 50
+experiment:
+  name: v6btot_whu_s42
+  seed: 42
+  resume: null
+  pretrained: null
+evaluation:
+  metrics:
+  - iou
+  - f1
+  - precision
+  - recall
+  save_predictions: false
+  visualize: true
+  vis_num: 20
+  use_tta: true

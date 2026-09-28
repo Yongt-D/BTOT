@@ -1,0 +1,494 @@
+{
+  "btot_levir_neutral_s42": {
+    "real/clean": {
+      "iou": 0.8539633432130106,
+      "precision": 0.9260289382011239,
+      "recall": 0.9164805823964768,
+      "complete_miss_rate": 0.07310042661132249,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.03088571085206105,
+      "n_false_alarm_components": 257,
+      "n_images": 2048
+    },
+    "real/shift2": {
+      "iou": 0.7549670506350511,
+      "precision": 0.8650982147913402,
+      "recall": 0.8557079558265096,
+      "complete_miss_rate": 0.08347745878012222,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.034170490219753685,
+      "n_false_alarm_components": 283,
+      "n_images": 2048
+    },
+    "real/shift4": {
+      "iou": 0.6335139208160794,
+      "precision": 0.7806192070069035,
+      "recall": 0.7707349163512935,
+      "complete_miss_rate": 0.09339328951919751,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.034597800568392435,
+      "n_false_alarm_components": 280,
+      "n_images": 2048
+    },
+    "real/shift8": {
+      "iou": 0.4611685391032332,
+      "precision": 0.6361389270935756,
+      "recall": 0.6264011896912922,
+      "complete_miss_rate": 0.11057304277643261,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.07269829594213559,
+      "n_false_alarm_components": 593,
+      "n_images": 2048
+    },
+    "real/bright0.7": {
+      "iou": 0.853427108910067,
+      "precision": 0.9271515767091862,
+      "recall": 0.9147675053280455,
+      "complete_miss_rate": 0.07529113340251355,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.0340201245807379,
+      "n_false_alarm_components": 284,
+      "n_images": 2048
+    },
+    "real/gamma1.6": {
+      "iou": 0.8502404594439631,
+      "precision": 0.9393597959478819,
+      "recall": 0.8996178959148823,
+      "complete_miss_rate": 0.0803643491294823,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.03228892609423583,
+      "n_false_alarm_components": 270,
+      "n_images": 2048
+    },
+    "real/colorcast": {
+      "iou": 0.8377935590213232,
+      "precision": 0.9286090527814258,
+      "recall": 0.8954699766168563,
+      "complete_miss_rate": 0.08555286521388217,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.031189320388349515,
+      "n_false_alarm_components": 257,
+      "n_images": 2048
+    },
+    "real/blur1.5": {
+      "iou": 0.791820276213893,
+      "precision": 0.9249372934761235,
+      "recall": 0.8461965974220625,
+      "complete_miss_rate": 0.1191052692263346,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.02728613569321534,
+      "n_false_alarm_components": 222,
+      "n_images": 2048
+    }
+  },
+  "btot_levir_neutral_s123": {
+    "real/clean": {
+      "iou": 0.8503652541071829,
+      "precision": 0.9262020117867806,
+      "recall": 0.9121697357652114,
+      "complete_miss_rate": 0.07702063876398017,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.03442485306465155,
+      "n_false_alarm_components": 287,
+      "n_images": 2048
+    },
+    "real/shift2": {
+      "iou": 0.7552303569028551,
+      "precision": 0.8673135990387969,
+      "recall": 0.8538879668365362,
+      "complete_miss_rate": 0.08762827164764211,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.03512396694214876,
+      "n_false_alarm_components": 289,
+      "n_images": 2048
+    },
+    "real/shift4": {
+      "iou": 0.6333986227531058,
+      "precision": 0.7823976367616443,
+      "recall": 0.7688391676139072,
+      "complete_miss_rate": 0.09800530381644183,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.03763109191856878,
+      "n_false_alarm_components": 305,
+      "n_images": 2048
+    },
+    "real/shift8": {
+      "iou": 0.4603959133236099,
+      "precision": 0.635487390981705,
+      "recall": 0.6256067361238271,
+      "complete_miss_rate": 0.1117260463507437,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.09617902630639209,
+      "n_false_alarm_components": 808,
+      "n_images": 2048
+    },
+    "real/bright0.7": {
+      "iou": 0.8480532954463006,
+      "precision": 0.9280483725709532,
+      "recall": 0.9077366205068473,
+      "complete_miss_rate": 0.07932664591260233,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.035461842578171796,
+      "n_false_alarm_components": 296,
+      "n_images": 2048
+    },
+    "real/gamma1.6": {
+      "iou": 0.8438105521037325,
+      "precision": 0.9348072062697267,
+      "recall": 0.8965708330237616,
+      "complete_miss_rate": 0.08439986163957108,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.035740072202166066,
+      "n_false_alarm_components": 297,
+      "n_images": 2048
+    },
+    "real/colorcast": {
+      "iou": 0.8349818185669932,
+      "precision": 0.9211356188049543,
+      "recall": 0.8992689330628993,
+      "complete_miss_rate": 0.08624466735846881,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.04220897701009609,
+      "n_false_alarm_components": 347,
+      "n_images": 2048
+    },
+    "real/blur1.5": {
+      "iou": 0.7960495885508189,
+      "precision": 0.9167526721600804,
+      "recall": 0.8580771298580573,
+      "complete_miss_rate": 0.11126484492101925,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.031484257871064465,
+      "n_false_alarm_components": 252,
+      "n_images": 2048
+    }
+  },
+  "diff_levir_neutral_s123": {
+    "real/clean": {
+      "iou": 0.8508655250177913,
+      "precision": 0.9279602262197807,
+      "recall": 0.9110443086294155,
+      "complete_miss_rate": 0.0760982359045313,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.03319701707962473,
+      "n_false_alarm_components": 276,
+      "n_images": 2048
+    },
+    "real/shift2": {
+      "iou": 0.7540220696201785,
+      "precision": 0.8688585774151061,
+      "recall": 0.8508568456683268,
+      "complete_miss_rate": 0.08728237057534878,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.030251488276029644,
+      "n_false_alarm_components": 249,
+      "n_images": 2048
+    },
+    "real/shift4": {
+      "iou": 0.6326740751221637,
+      "precision": 0.7837744383010157,
+      "recall": 0.7664506880096598,
+      "complete_miss_rate": 0.09708290095699297,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.033118332919871,
+      "n_false_alarm_components": 267,
+      "n_images": 2048
+    },
+    "real/shift8": {
+      "iou": 0.4593021361966962,
+      "precision": 0.6363203554091785,
+      "recall": 0.6227888537813474,
+      "complete_miss_rate": 0.11080364349129482,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.0685369755137197,
+      "n_false_alarm_components": 557,
+      "n_images": 2048
+    },
+    "real/bright0.7": {
+      "iou": 0.8497323195648769,
+      "precision": 0.9300471868458239,
+      "recall": 0.9077483208539381,
+      "complete_miss_rate": 0.07725123947884238,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.03680835905960579,
+      "n_false_alarm_components": 310,
+      "n_images": 2048
+    },
+    "real/gamma1.6": {
+      "iou": 0.8446627705597837,
+      "precision": 0.9373439997353767,
+      "recall": 0.895206865061652,
+      "complete_miss_rate": 0.08024904877205119,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.032625459722387,
+      "n_false_alarm_components": 275,
+      "n_images": 2048
+    },
+    "real/colorcast": {
+      "iou": 0.8341423678996613,
+      "precision": 0.9251012191674596,
+      "recall": 0.8945557407460493,
+      "complete_miss_rate": 0.08912717629424652,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.03400534369686665,
+      "n_false_alarm_components": 280,
+      "n_images": 2048
+    },
+    "real/blur1.5": {
+      "iou": 0.7920056595648136,
+      "precision": 0.9242246543765932,
+      "recall": 0.8470059689320684,
+      "complete_miss_rate": 0.11437795457165917,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.027165932452276064,
+      "n_false_alarm_components": 222,
+      "n_images": 2048
+    }
+  },
+  "ssm_levir_neutral_s42": {
+    "real/clean": {
+      "iou": 0.8531645893597741,
+      "precision": 0.925016155348771,
+      "recall": 0.9165528320397625,
+      "complete_miss_rate": 0.07240862446673585,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.035891968727789623,
+      "n_false_alarm_components": 303,
+      "n_images": 2048
+    },
+    "real/shift2": {
+      "iou": 0.7548505651498374,
+      "precision": 0.865016558548419,
+      "recall": 0.8556381925069807,
+      "complete_miss_rate": 0.08382335985241554,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.03402669231694121,
+      "n_false_alarm_components": 283,
+      "n_images": 2048
+    },
+    "real/shift4": {
+      "iou": 0.631943260926861,
+      "precision": 0.7789007879578805,
+      "recall": 0.7700837920356908,
+      "complete_miss_rate": 0.09362389023405973,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.034630445423396966,
+      "n_false_alarm_components": 283,
+      "n_images": 2048
+    },
+    "real/shift8": {
+      "iou": 0.4577132466248724,
+      "precision": 0.6285955862958296,
+      "recall": 0.627381678777501,
+      "complete_miss_rate": 0.10515392597717053,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.08935114052712445,
+      "n_false_alarm_components": 756,
+      "n_images": 2048
+    },
+    "real/bright0.7": {
+      "iou": 0.8524412219560321,
+      "precision": 0.9273305596229449,
+      "recall": 0.9134611615753582,
+      "complete_miss_rate": 0.07552173411737577,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.0350794027020621,
+      "n_false_alarm_components": 296,
+      "n_images": 2048
+    },
+    "real/gamma1.6": {
+      "iou": 0.8488480444280719,
+      "precision": 0.9345402701659777,
+      "recall": 0.9025089054266795,
+      "complete_miss_rate": 0.07828894269572235,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.03558383409921056,
+      "n_false_alarm_components": 302,
+      "n_images": 2048
+    },
+    "real/colorcast": {
+      "iou": 0.8417528397851965,
+      "precision": 0.9176424583657049,
+      "recall": 0.9105410474501726,
+      "complete_miss_rate": 0.08013374841462008,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.04056795131845842,
+      "n_false_alarm_components": 340,
+      "n_images": 2048
+    },
+    "real/blur1.5": {
+      "iou": 0.8257246007098641,
+      "precision": 0.9133434084964758,
+      "recall": 0.8959135660259362,
+      "complete_miss_rate": 0.10054191167992621,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.03166194406800542,
+      "n_false_alarm_components": 257,
+      "n_images": 2048
+    }
+  },
+  "ssm_levir_neutral_s123": {
+    "real/clean": {
+      "iou": 0.8503113908910847,
+      "precision": 0.9226011274560588,
+      "recall": 0.9156270420762032,
+      "complete_miss_rate": 0.07425343018563357,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.039816232771822356,
+      "n_false_alarm_components": 338,
+      "n_images": 2048
+    },
+    "real/shift2": {
+      "iou": 0.753402544913361,
+      "precision": 0.8632406144137988,
+      "recall": 0.8555153388625274,
+      "complete_miss_rate": 0.08762827164764211,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.037232132168083326,
+      "n_false_alarm_components": 311,
+      "n_images": 2048
+    },
+    "real/shift4": {
+      "iou": 0.6311661252724362,
+      "precision": 0.7781506004446073,
+      "recall": 0.769662579540422,
+      "complete_miss_rate": 0.09639109881240632,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.03695093600880949,
+      "n_false_alarm_components": 302,
+      "n_images": 2048
+    },
+    "real/shift8": {
+      "iou": 0.4597956803148028,
+      "precision": 0.6340289050593557,
+      "recall": 0.6259138702349605,
+      "complete_miss_rate": 0.11126484492101925,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.08043087971274686,
+      "n_false_alarm_components": 672,
+      "n_images": 2048
+    },
+    "real/bright0.7": {
+      "iou": 0.8478169654288413,
+      "precision": 0.9255131073973808,
+      "recall": 0.9099030860250469,
+      "complete_miss_rate": 0.07851954341058458,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.03781364118270703,
+      "n_false_alarm_components": 321,
+      "n_images": 2048
+    },
+    "real/gamma1.6": {
+      "iou": 0.8448639166204569,
+      "precision": 0.9333224734634068,
+      "recall": 0.8991337940540006,
+      "complete_miss_rate": 0.08151735270379339,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.03600423579244617,
+      "n_false_alarm_components": 306,
+      "n_images": 2048
+    },
+    "real/colorcast": {
+      "iou": 0.8393549180291284,
+      "precision": 0.9177548402515135,
+      "recall": 0.9076259059725007,
+      "complete_miss_rate": 0.08555286521388217,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.04260921603830042,
+      "n_false_alarm_components": 356,
+      "n_images": 2048
+    },
+    "real/blur1.5": {
+      "iou": 0.8122699353430122,
+      "precision": 0.9118661418263976,
+      "recall": 0.881472266374782,
+      "complete_miss_rate": 0.10400092240285945,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.029350104821802937,
+      "n_false_alarm_components": 238,
+      "n_images": 2048
+    }
+  },
+  "btot_nodustbin_levir_neutral_s42": {
+    "real/clean": {
+      "iou": 0.8500551615659495,
+      "precision": 0.9234585175385195,
+      "recall": 0.9144875745238983,
+      "complete_miss_rate": 0.07390752911334025,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.028822961890979257,
+      "n_false_alarm_components": 239,
+      "n_images": 2048
+    },
+    "real/shift2": {
+      "iou": 0.7517426562265196,
+      "precision": 0.8613057163014229,
+      "recall": 0.8552750429841501,
+      "complete_miss_rate": 0.0860140666436066,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.027073379884846257,
+      "n_false_alarm_components": 221,
+      "n_images": 2048
+    },
+    "real/shift4": {
+      "iou": 0.6297842295472331,
+      "precision": 0.7764264214839179,
+      "recall": 0.7692938723527234,
+      "complete_miss_rate": 0.09696760059956186,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.0311366762535951,
+      "n_false_alarm_components": 249,
+      "n_images": 2048
+    },
+    "real/shift8": {
+      "iou": 0.45758488357937743,
+      "precision": 0.6329511348986883,
+      "recall": 0.622864321020083,
+      "complete_miss_rate": 0.11068834313386372,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.06419294990723562,
+      "n_false_alarm_components": 519,
+      "n_images": 2048
+    },
+    "real/bright0.7": {
+      "iou": 0.8489546916014747,
+      "precision": 0.9259537970107097,
+      "recall": 0.910786900993418,
+      "complete_miss_rate": 0.07921134555517122,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.029280636221231473,
+      "n_false_alarm_components": 243,
+      "n_images": 2048
+    },
+    "real/gamma1.6": {
+      "iou": 0.8459241248828858,
+      "precision": 0.9341892517718308,
+      "recall": 0.8995295582943468,
+      "complete_miss_rate": 0.08209385449094893,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.028001442134358852,
+      "n_false_alarm_components": 233,
+      "n_images": 2048
+    },
+    "real/colorcast": {
+      "iou": 0.8301752071589351,
+      "precision": 0.9201617010957682,
+      "recall": 0.8946148274988578,
+      "complete_miss_rate": 0.08336215842269111,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.03426979898280455,
+      "n_false_alarm_components": 283,
+      "n_images": 2048
+    },
+    "real/blur1.5": {
+      "iou": 0.806778091959742,
+      "precision": 0.9164786720520146,
+      "recall": 0.870803012371362,
+      "complete_miss_rate": 0.11380145278450363,
+      "n_gt_components": 8673,
+      "false_alarm_component_rate": 0.0230661399260864,
+      "n_false_alarm_components": 181,
+      "n_images": 2048
+    }
+  }
+}

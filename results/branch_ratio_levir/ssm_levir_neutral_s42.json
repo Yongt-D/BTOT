@@ -1,0 +1,22 @@
+{
+ "name": "ssm_levir_neutral_s42",
+ "ckpt": "checkpoints/rev_ssm_levir_neutralloss_seed42/levir_cd/best.pth",
+ "epoch": 138,
+ "dataset": "LEVIR_CD",
+ "n_images": 2048,
+ "gamma": [
+  -0.22017844021320343,
+  -0.18196703493595123,
+  0.23659394681453705,
+  0.03858043625950813
+ ],
+ "branch_to_difference_norm_ratio": [
+  0.39427974668797106,
+  0.23953457112656906,
+  0.3808924063341692,
+  0.435017517011147
+ ],
+ "iou": 0.8531711229902843,
+ "iou_gamma0": 0.8505280718358492,
+ "iou_drop_gamma0": 0.002643051154435083
+}

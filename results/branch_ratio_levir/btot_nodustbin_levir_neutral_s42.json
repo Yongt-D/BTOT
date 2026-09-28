@@ -1,0 +1,22 @@
+{
+ "name": "btot_nodustbin_levir_neutral_s42",
+ "ckpt": "checkpoints/rev_btot_nodustbin_levir_neutralloss_seed42/levir_cd/best.pth",
+ "epoch": 146,
+ "dataset": "LEVIR_CD",
+ "n_images": 2048,
+ "gamma": [
+  0.26451870799064636,
+  0.24651114642620087,
+  0.1534484326839447,
+  0.05976556986570358
+ ],
+ "branch_to_difference_norm_ratio": [
+  0.4196419940562919,
+  0.3607512703165412,
+  0.1542623381537851,
+  0.4429090528283268
+ ],
+ "iou": 0.8500517968475977,
+ "iou_gamma0": 0.8519692247288022,
+ "iou_drop_gamma0": -0.0019174278812045253
+}

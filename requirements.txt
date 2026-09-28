@@ -1,0 +1,9 @@
+torch>=2.4
+torchvision
+numpy
+scipy
+matplotlib
+pillow
+pyyaml
+tqdm
+tensorboard

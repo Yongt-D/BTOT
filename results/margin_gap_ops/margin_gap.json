@@ -1,0 +1,62 @@
+{
+ "diff": {
+  "WHU_CD": {
+   "gated_coverage": 0.9576304878775529,
+   "gated_change_share": 0.09377677759387068,
+   "margin_lowest_bin_share": 5.030193979658793e-05,
+   "margin": {
+    "auroc": 0.9927075284090809,
+    "ap": 0.9573183028921408,
+    "oracle_iou": 0.8489283911227316,
+    "oracle_thr": -1.414999999999992,
+    "iou_at_whu_thr": 0.8489283911227316,
+    "whu_thr": -1.414999999999992,
+    "change_share_at_gated_coverage": 0.09379800355950214
+   }
+  },
+  "LEVIR_CD": {
+   "gated_coverage": 0.9893498346209526,
+   "gated_change_share": 0.8180170427255724,
+   "margin_lowest_bin_share": 5.198270082473755e-05,
+   "margin": {
+    "auroc": 0.9482839435997164,
+    "ap": 0.6076434084737858,
+    "oracle_iou": 0.39391692622264995,
+    "oracle_thr": -9.754999999999995,
+    "iou_at_whu_thr": 0.1592760579253429,
+    "whu_thr": -1.414999999999992,
+    "change_share_at_gated_coverage": 0.8180866597907627
+   }
+  }
+ },
+ "ssm": {
+  "WHU_CD": {
+   "gated_coverage": 0.9570750239014313,
+   "gated_change_share": 0.08272866248269045,
+   "margin_lowest_bin_share": 0.0,
+   "margin": {
+    "auroc": 0.995503231666721,
+    "ap": 0.9622392553657717,
+    "oracle_iou": 0.8569320882057788,
+    "oracle_thr": -2.0,
+    "iou_at_whu_thr": 0.8569320882057788,
+    "whu_thr": -2.0,
+    "change_share_at_gated_coverage": 0.08275219561849927
+   }
+  },
+  "LEVIR_CD": {
+   "gated_coverage": 0.9908428341150284,
+   "gated_change_share": 0.8419344534855626,
+   "margin_lowest_bin_share": 0.0,
+   "margin": {
+    "auroc": 0.9413626683684869,
+    "ap": 0.5986592413492144,
+    "oracle_iou": 0.40188430009714177,
+    "oracle_thr": -9.784999999999997,
+    "iou_at_whu_thr": 0.1453971778232718,
+    "whu_thr": -2.0,
+    "change_share_at_gated_coverage": 0.8419891526082122
+   }
+  }
+ }
+}

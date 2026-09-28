@@ -1,0 +1,29 @@
+{
+ "name": "diff_levir_neutral_s123",
+ "ckpt": "checkpoints/rev_diff_levir_neutralloss_s123_seed123/levir_cd/best.pth",
+ "epoch": 131,
+ "source": "LEVIR_CD",
+ "target": "WHU_CD",
+ "n_images": {
+  "source": 2048,
+  "target": 762
+ },
+ "source_metrics": {
+  "auroc": 0.9978626115515069,
+  "ap": 0.9748373469801532,
+  "iou_at_0.5": 0.8508582327979857,
+  "oracle_iou": 0.8509891116006163,
+  "oracle_margin": -0.539999999999992,
+  "change_share": 0.05094262957572937
+ },
+ "target_metrics": {
+  "auroc": 0.9790482738618895,
+  "ap": 0.8788743953931011,
+  "iou_at_0.5": 0.7179688409541861,
+  "oracle_iou": 0.7194226622168435,
+  "oracle_margin": 1.8799999999999955,
+  "change_share": 0.04339657680881931,
+  "rate_matched_iou": 0.6426422562673512,
+  "rate_matched_margin": -6.2749999999999915
+ }
+}

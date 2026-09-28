@@ -1,69 +1,124 @@
-# BTOT: Bi-Temporal Optimal Transport for Change Detection
+# On the Limited Role of Bitemporal Fusion Operators in Remote Sensing Change Detection with Vision Foundation Models
 
-Official implementation of **"From Appearance Differencing to Correspondence Reasoning:
-A Bi-Temporal Optimal-Transport Operator for Change Detection on Vision Foundation Models."**
+Code, configurations, data splits, and per-image results for the paper of the same title
+(Deng, Lei, Zhang, Peng, and Li; submitted to IEEE JSTARS).
 
-> **TL;DR** — Almost all deep change-detection (CD) models decide *what changed* with the same
-> shallow mechanism: an appearance **difference** between spatially aligned features. This conflates
-> photometric dissimilarity with semantic change and, in the worst case, produces **complete misses**
-> — an entire changed structure that receives *no activation*. BTOT instead infers change by explicit
-> **correspondence reasoning**: a region has changed precisely when it cannot be matched to any
-> counterpart in the other acquisition. We realize this as a differentiable, dustbin-augmented optimal
-> transport operator, and read change as the **unmatchable transport mass** routed to a learnable
-> dustbin — a structured, interpretable change representation rather than an opaque score.
+**About this repository.** It first described BTOT, a bitemporal optimal-transport operator that we proposed as an
+improvement over feature differencing. When we compared the operator with a difference module, window cross-attention
+(HBCA), and a selective state-space scan (SSM) under one backbone, one training recipe, and two seeds each, its
+advantage disappeared. The paper reports that controlled comparison and what it implies for evaluating change detection
+models. The earlier claims about BTOT (fewer complete misses, higher recall) do not hold under matched conditions and
+are withdrawn.
 
-## Highlights
+## Main result (LEVIR-CD, single pass, IoU %)
 
-- **Correspondence reasoning, not differencing.** Change is the mass that cannot be transported
-  between the two acquisitions, recovered by an entropy-regularized, windowed, dustbin-augmented
-  log-domain Sinkhorn solver.
-- **Interpretable by construction.** The unmatchable-mass field localizes *why* a region is flagged
-  — it has no counterpart — and is directional (appeared / disappeared).
-- **Lightweight & CUDA-free.** A drop-in bi-temporal interaction operator (~1.4M parameters) on top
-  of a **frozen** DINOv3 vision foundation model; no custom CUDA kernels, no task-specific backbone.
-- **Recovers silent misses.** Highest recall on four optical building-CD benchmarks; best single-pass
-  IoU on LEVIR-CD.
+| Operator | Seed 42 | Seed 123 | Mean | Difference to the difference operator [95% image-bootstrap CI] |
+|---|---|---|---|---|
+| Difference | 85.24 | 85.09 | 85.16 | reference |
+| Cross-attention (HBCA) | 85.25 | 85.25 | 85.25 | +0.09 [-0.13, +0.29] |
+| State-space (SSM) | 85.32 | 85.03 | 85.17 | +0.01 [-0.24, +0.24] |
+| Optimal transport (BTOT) | 85.40 | 85.04 | 85.22 | +0.05 [-0.12, +0.21] |
+| BTOT without dustbin | 85.01 | - | 85.01 | -0.21 [-0.50, +0.07] vs. BTOT |
 
-## Results (single-pass, no test-time augmentation)
+Every interval includes zero, and the intervals that also include training variance are wider still. Replacing the
+operator changes per-image errors and completely missed objects no more than replacing the seed, and no operator is
+more robust to perturbations of the second image or transfers better to WHU-CD than the difference module.
+See the paper for the power analysis of the WHU-CD test split and the audit of 62 recent papers.
 
-| Benchmark   | IoU   | F1    | Precision | Recall |
-|-------------|-------|-------|-----------|--------|
-| WHU-CD      | 86.60 | 92.82 | 92.87     | 92.76  |
-| LEVIR-CD    | 85.47 | 92.17 | 91.21     | 93.15  |
-| LEVIR-CD+   | 85.64 | 92.26 | 89.78     | 94.89  |
-| S2Looking   | 53.07 | 69.34 | 68.29     | 70.42  |
+## Contents
 
-Over three random seeds on WHU-CD, BTOT attains **86.78 ± 0.85%** IoU (seeds 42/123/456:
-86.60 / 86.04 / 87.71), confirming the reported run is representative.
+| Path | Content |
+|---|---|
+| `dinobcd/` | Model (shared architecture and the four operators), datasets, losses |
+| `dinobcd/configs/rev_jstars/` | The matched training recipe for LEVIR-CD and WHU-CD |
+| `train_dinobcd.py` | Training |
+| `eval_component_miss.py` | Object-level complete misses and McNemar tests |
+| `eval_nuisance_robustness.py` | Perturbations of the second image (shift, brightness, gamma, color cast, blur) |
+| `analysis/tta_gap.py` | Single pass, flipped views, and TTA, with per-image confusion counts |
+| `analysis/tta_gap_boot.py` | Paired image bootstrap between two models |
+| `analysis/branch_ratio.py` | Learned gates, branch norm ratio, and IoU with the operator branch removed |
+| `analysis/zeroshot_eval.py` | Zero-shot transfer from the logit margin |
+| `analysis/final_sweep.sh` | Runs the four post-training evaluations above |
+| `analysis/paper_numbers.py` | Recomputes every number, table, and statistics figure of the paper from `results/` |
+| `splits/` | Train/validation/test lists for LEVIR-CD and WHU-CD (256x256 patches) |
+| `results/` | All cached evaluation outputs used in the paper |
+| `results/per_image_csv/` | Per-image confusion counts of every model as CSV |
+| `results/lit_audit/` | The literature audit (62 papers) with the extraction rules |
+| `RUNS.md` | Hardware, software, seed, and checkpoint epoch of every trained model |
 
-## Method
+## Reproducing the numbers of the paper
 
-Bi-temporal images are encoded by a shared, frozen DINOv3-Large backbone (last blocks fine-tuned)
-with a lightweight CNN, bidirectional temporal interaction (BTI) on the raw tokens, and hierarchical
-feature aggregation (HFA), then fused into a four-level pyramid. At each level the **BTOT operator**
-replaces the difference module: it projects and L2-normalizes tokens, partitions them into local
-windows, builds a temperature-scaled cosine cost augmented with a learnable dustbin, runs a
-log-domain Sinkhorn solver, and reads change as the directional unmatchable mass. A γ-gated bounded
-residual merges it with a difference branch (γ initialized so training starts from pure differencing).
-A multi-scale feature aggregation (MSFA) decoder produces the final change map.
+No GPU or dataset is needed for this step:
 
-## Status
+```bash
+pip install numpy scipy matplotlib
+python analysis/paper_numbers.py 5000
+```
 
-The paper is currently **under review**. Full training/evaluation code, configurations, and
-pretrained checkpoints will be released here upon acceptance.
+It writes `paper_outputs/gen/numbers.tex`, the table bodies, and the statistics figures, and reproduces the values in
+the paper exactly.
+
+## Per-image results
+
+`results/per_image_csv/<dataset>/<model>.csv` has one row per test image in the order of `splits/<dataset>/test.txt`.
+Columns give true-positive, false-positive, and false-negative pixels at a threshold of 0.5 for the original image
+(`original_*`), its horizontally, vertically, and doubly flipped copies (`flip_w_*`, `flip_h_*`, `flip_hw_*`), and
+flip test-time augmentation (`tta_*`). The pooled IoU of a model is `sum(tp) / sum(tp + fp + fn)` over a column
+group, and any paired comparison can be recomputed by resampling rows. Every row was checked against the reference
+masks (TP + FN equals the number of change pixels in the image). The same counts are stored as NumPy arrays in
+`results/tta_gap_levir_img/` and `results/tta_gap_whu_img/`.
+
+## Training and evaluation
+
+**Environment.** Python 3 with PyTorch 2.4 or 2.5.1 (see `requirements.txt`). Runs were split across an
+RTX 3090 and an RTX 4090D; `RUNS.md` lists each one.
+
+**Backbone.** Clone [facebookresearch/dinov3](https://github.com/facebookresearch/dinov3) into `./dinov3` and place
+the ViT-L/16 SAT-493M weights at `dinov3/weights/dinov3_vitl16_pretrain_sat493m-eadcf0ff.pth`. The weights are
+distributed by Meta under the DINOv3 license and are not included here.
+
+**Data.** Obtain LEVIR-CD and WHU-CD from their providers in 256x256 patches and arrange each as
+`data_dir/<LEVIR-CD|WHU-CD>/{A,B,label,list}`, copying the lists from `splits/`, which name the patches used in the
+paper. The WHU-CD patches form a non-overlapping 127x60 tiling of the scene, and no test patch duplicates or overlaps a
+training patch.
+
+**Training** (seed 42 shown; the paper also uses seed 123):
+
+```bash
+R="--tversky_beta 0.5 --focal_alpha 0.5 --seed 42 --gpu 0"
+python train_dinobcd.py --config dinobcd/configs/rev_jstars/diff_levir_recipe_slim.yaml $R --exp_name diff_levir
+python train_dinobcd.py --config dinobcd/configs/rev_jstars/diff_levir_recipe_slim.yaml --hbca $R --exp_name hbca_levir
+python train_dinobcd.py --config dinobcd/configs/rev_jstars/diff_levir_recipe_slim.yaml --ssm $R --exp_name ssm_levir
+python train_dinobcd.py --config dinobcd/configs/rev_jstars/btot_levir_recipe_slim.yaml $R --exp_name btot_levir
+python train_dinobcd.py --config dinobcd/configs/rev_jstars/btot_levir_recipe_slim.yaml --ot_no_dustbin $R --exp_name btot_nodustbin_levir
+```
+
+`--tversky_beta 0.5 --focal_alpha 0.5` gives the neutral loss used for every model in the paper.
+
+**Evaluation** (from the repository root):
+
+```bash
+PYTHONPATH=. python analysis/tta_gap.py results/tta_gap_levir_img NAME=checkpoints/<run>/levir_cd/best.pth
+python analysis/tta_gap_boot.py results/tta_gap_levir_img NAME_A NAME_B 5000 splits/LEVIR-CD/test.txt
+bash analysis/final_sweep.sh python TAG NAME=checkpoints/<run>/levir_cd/best.pth [...]
+```
+
+Trained checkpoints are not released. The per-image results in `results/` are enough to verify every number in the
+paper, and the configurations and seeds above retrain each model.
 
 ## Citation
 
 ```bibtex
-@article{deng2026btot,
-  title   = {From Appearance Differencing to Correspondence Reasoning: A Bi-Temporal
-             Optimal-Transport Operator for Change Detection on Vision Foundation Models},
+@article{deng2026fusion,
+  title   = {On the Limited Role of Bitemporal Fusion Operators in Remote Sensing Change Detection
+             with Vision Foundation Models},
   author  = {Deng, Yongtao and Lei, Dajiang and Zhang, Liping and Peng, Yidong and Li, Weisheng},
-  journal = {Under review},
+  journal = {Submitted to IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing},
   year    = {2026}
 }
 ```
 
 ## License
 
-To be determined upon release.
+The code is released under the MIT License (see `LICENSE`). The DINOv3 backbone and its weights are subject to Meta's
+DINOv3 license, and LEVIR-CD and WHU-CD to the terms of their providers.
