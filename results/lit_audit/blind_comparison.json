@@ -1,0 +1,1634 @@
+[
+ {
+  "key": [
+   "bandara2022changeformer",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.8,
+  "margin_blind": 1.8,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "256x256 non-overlapping crops, 7120/1024/2048 train/val/test",
+  "var_ours": "no - caption says 'average quantitative ",
+  "var_blind": "no - caption says 'average quantitative results' but no runs",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "no stated"
+ },
+ {
+  "key": [
+   "chen2022bit",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.85,
+  "margin_blind": 1.85,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "256x256 non-overlapping crops of official split, 7120/1024/2048",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned (training aug: flip, resca"
+ },
+ {
+  "key": [
+   "chen2022fccdn",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.8,
+  "margin_blind": 0.8,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "standard LEVIR split 445/64/128 full images; training on 512x512 crops with 256 overlap (also a 256 variant); inference on full 1024x1024 test images",
+  "var_ours": "yes - ablation table averaged over 3 run",
+  "var_blind": "partial: ablation Table 2 is mean of 3 runs with +/- shifts ",
+  "tta_ours": "no (explicitly stated)",
+  "tta_blind": "no (explicitly: no test time augmentatio"
+ },
+ {
+  "key": [
+   "wang2022uvacd",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.5,
+  "margin_blind": 1.5,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "LEVIR-CD 256x256 non-overlap, 7120/1024/2048",
+  "var_ours": "no - caption says 'average quantitative ",
+  "var_blind": "no: caption says 'average quantitative results' but no numbe",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "xia2022egctnet",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.47,
+  "margin_blind": 0.47,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "official LEVIR-CD train/val/test division, cropped to 256x256 (counts not given)",
+  "var_ours": "no",
+  "var_blind": "no - single numbers only; no seeds/std/CI/significance tests",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "yan2022ftn",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.03,
+  "margin_blind": 1.03,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "official split, 256x256 non-overlapping crops, 7120/1024/2048",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned (training aug: random rota"
+ },
+ {
+  "key": [
+   "chen2023sarasnet",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.48,
+  "margin_blind": 1.48,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "256x256 patches 7120/1024/2048",
+  "var_ours": "no",
+  "var_blind": "no (single values, no std/CI/significance in main table)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned (train aug: rescale, crop,"
+ },
+ {
+  "key": [
+   "codegoni2023tinycd",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.09,
+  "margin_blind": 1.09,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "LEVIR-CD 256x256, 7120/1024/2048",
+  "var_ours": "no - single run with fixed random seed",
+  "var_blind": "no: single run; footnote says random seed fixed for reproduc",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "fang2023changer",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": null,
+  "margin_blind": null,
+  "conf": "medium",
+  "split_ours": "LEVIR other, random or unstated split",
+  "split_blind": "not stated in arXiv v1 (only '1024x1024' images; MACs computed at 512x512); trained 40k iters with random crop",
+  "var_ours": "no",
+  "var_blind": "no - single numbers only; no seeds/std/CI/significance tests",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "han2023cgnet",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.42,
+  "margin_blind": 0.42,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "official 445/64/128 image pairs cropped to 256x256 non-overlapping: 7120/1024/2048",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported); ",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "han2023hanet",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.06,
+  "margin_blind": 0.06,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "default 445/64/128 cropped to 256x256 non-overlapping: 7120/1024/2048",
+  "var_ours": "no",
+  "var_blind": "no (single values, no std/CI/significance in main table)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "han2023hcgmnet",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 2.58,
+  "margin_blind": 2.58,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "LEVIR-CD 256x256 non-overlap, 7120/1024/2048",
+  "var_ours": "no",
+  "var_blind": "no",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "lei2023ussfcnet",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": null,
+  "margin_blind": null,
+  "conf": "high",
+  "split_ours": "LEVIR other, random or unstated split",
+  "split_blind": "Nonstandard: 13,072 256x256 patches split 10000/1024/2048 train/val/test",
+  "var_ours": "no",
+  "var_blind": "no - single numbers only; no seeds/std/CI/significance tests",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "li2023mctnet",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": null,
+  "margin_blind": null,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "256x256 patches, 7120/1024/2048",
+  "var_ours": "yes - mean of three runs reported for ev",
+  "var_blind": "partial: caption states the average of three experiments is ",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "ma2023stnet",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": -0.39,
+  "margin_blind": -0.39,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "256x256 non-overlapping, 7120/1024/2048",
+  "var_ours": "no",
+  "var_blind": "no (single values, no std/CI/significance in main table)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned (train aug flip/rotate)"
+ },
+ {
+  "key": [
+   "mohammadian2023siamixformer",
+   "LEVIR-CD"
+  ],
+  "issues": [
+   "competitor_iou: ours 83.98 vs blind 91.13",
+   "competitor_f1: ours 91.30 vs blind 90.85",
+   "competitor: ours UVACD vs blind FDOR-Net (printed IoU 91.13 is impossible since IoU > F1 90.85; likely typo). Next highest plausible: UVACD IoU 83.98 / F1 91.30"
+  ],
+  "margin_ours": 1.4,
+  "margin_blind": -5.75,
+  "conf": "medium",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "LEVIR-CD 256x256 non-overlap, 7120/1024/2048",
+  "var_ours": "no",
+  "var_blind": "no",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "wang2023apd",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.02,
+  "margin_blind": 1.02,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "'default train/val/test split' (counts/crop size not stated)",
+  "var_ours": "no",
+  "var_blind": "no - single numbers only; no seeds/std/CI/significance tests",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "yan2023transynet",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": -0.34,
+  "margin_blind": -0.34,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "official split, 256x256 non-overlapping, 7120/1024/2048",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "ye2023afcf3dnet",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.6,
+  "margin_blind": 0.6,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "7120/1024/2048 (256x256 crops per STANet division)",
+  "var_ours": "no - ablation averaged over epochs; no s",
+  "var_blind": "no for main table; ablation Table III averages test results ",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "yin2023ctcanet",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.37,
+  "margin_blind": 1.37,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "LEVIR-CD 256x256, 7120/1024/2048",
+  "var_ours": "no - caption says 'average quantitative ",
+  "var_blind": "no: caption says 'Average quantitative results' but no runs/",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "zhang2023dmmstnet",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.09,
+  "margin_blind": 1.09,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "256x256 crops, 7120/1024/2048 train/val/test",
+  "var_ours": "no",
+  "var_blind": "no - single numbers only; no seeds/std/CI/significance tests",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "zhao2023sgsln",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.15,
+  "margin_blind": 0.15,
+  "conf": "high",
+  "split_ours": "LEVIR other, random or unstated split",
+  "split_blind": "NON-standard: 256x256 crops with 128-px overlap, split 7:1:2 following FCCDN (not the 7120/1024/2048 protocol)",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported); ",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "zhao2023vitadapter",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": -1.4,
+  "margin_blind": -1.4,
+  "conf": "high",
+  "split_ours": "LEVIR other, random or unstated split",
+  "split_blind": "cropped to 256 following ChangeFormer (counts not stated; presumably 7120/1024/2048)",
+  "var_ours": "no",
+  "var_blind": "no (single values, no std/CI/significance in main table)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "chang2024dsfernet",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 3.22,
+  "margin_blind": 3.22,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "LEVIR-CD 256x256, 7120/1024/2048",
+  "var_ours": "no",
+  "var_blind": "no",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "chen2024srcnet",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.94,
+  "margin_blind": 0.94,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "256x256 non-overlapping crops; paper reports only 7120 training and 1024 validation sets - no test set mentioned; qualitative results said to be 'from the validation set'",
+  "var_ours": "no",
+  "var_blind": "no - single numbers only; no seeds/std/CI/significance tests",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "chen2024ttp",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 2.2,
+  "margin_blind": 2.2,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "official 445/64/128 image pairs (1024x1024); model input 512x512; test tiling not specified",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "ding2024samcd",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.1,
+  "margin_blind": 0.1,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "official 445/64/128 image pairs (1024x1024); training with random crops",
+  "var_ours": "no",
+  "var_blind": "no (single values, no std/CI/significance in main table)",
+  "tta_ours": "yes - 8x flip TTA at infe",
+  "tta_blind": "YES: 8x flipping test-time augmentation"
+ },
+ {
+  "key": [
+   "dong2024efficientcd",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.15,
+  "margin_blind": 0.15,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "Non-standard: 445/64/128 images cut into 256x256 patches with 64-px overlap (mirror padding) -> 16,020/2,304/4,608 patches",
+  "var_ours": "no",
+  "var_blind": "no",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned (training aug only: Random"
+ },
+ {
+  "key": [
+   "jia2024smdnet",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.23,
+  "margin_blind": 0.23,
+  "conf": "high",
+  "split_ours": "LEVIR other, random or unstated split",
+  "split_blind": "Own random split: 256x256 crops randomly divided train/test/val 0.75/0.2/0.05",
+  "var_ours": "no",
+  "var_blind": "no - single numbers only; no seeds/std/CI/significance tests",
+  "tta_ours": "no (not mentioned); itera",
+  "tta_blind": "not mentioned (DDIM sampling with 10 ste"
+ },
+ {
+  "key": [
+   "lei2024lsat",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": null,
+  "margin_blind": null,
+  "conf": "high",
+  "split_ours": "LEVIR other, random or unstated split",
+  "split_blind": "NON-standard: images randomly cropped to 256x256; 10,000 train / 1,024 val / 2,048 test pairs",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "li2024ban",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.78,
+  "margin_blind": 1.78,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "official 445/64/128 1024x1024 images; 512x512 random-crop training, sliding-window inference",
+  "var_ours": "no",
+  "var_blind": "no (single values, no std/CI/significance in main table)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned (sliding-window inference "
+ },
+ {
+  "key": [
+   "ma2024cdmask",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.37,
+  "margin_blind": 0.37,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "LEVIR-CD 256x256 non-overlap, 7120/1024/2048",
+  "var_ours": "yes - Fig. 1 plots median and standard d",
+  "var_blind": "partial: Fig. 1 caption says runs repeated five times with d",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned (training aug: flip, blur)"
+ },
+ {
+  "key": [
+   "ma2024ddlnet",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.01,
+  "margin_blind": 0.01,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "256x256 non-overlapping crops randomly divided 7120/1024/2048",
+  "var_ours": "no",
+  "var_blind": "no - single numbers only; no seeds/std/CI/significance tests",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "noman2024changebind",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.27,
+  "margin_blind": 1.27,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "256x256 crops, default split 7120/1024/2048",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "noman2024elgcnet",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.16,
+  "margin_blind": 0.16,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "256x256 non-overlapping 7120/1024/2048",
+  "var_ours": "no",
+  "var_blind": "no (single values, no std/CI/significance in main table)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "noman2024scratchformer",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.14,
+  "margin_blind": 1.14,
+  "conf": "medium",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "LEVIR-CD 256x256 non-overlap, 7120/1024/2048",
+  "var_ours": "no",
+  "var_blind": "no",
+  "tta_ours": "no (not mentioned); input",
+  "tta_blind": "not mentioned; inputs upsampled 256->512"
+ },
+ {
+  "key": [
+   "ren2024mfinet",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.67,
+  "margin_blind": 0.67,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "256x256, 7120/1024/2048 train/val/test (Table 1)",
+  "var_ours": "no",
+  "var_blind": "no - single numbers only; no seeds/std/CI/significance tests",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "wang2024rsbuilding",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.05,
+  "margin_blind": 1.05,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "official 445/64/128 image pairs; train and test at 512x512 crops",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "no ('no additional validation-time augme"
+ },
+ {
+  "key": [
+   "wen2024gcdddpm",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.83,
+  "margin_blind": 0.83,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "256x256 non-overlapping 7120/1024/2048",
+  "var_ours": "no",
+  "var_blind": "no (single values, no std/CI/significance in main table)",
+  "tta_ours": "no (not mentioned); itera",
+  "tta_blind": "not mentioned (1000 diffusion steps at i"
+ },
+ {
+  "key": [
+   "yu2024maskcd",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.76,
+  "margin_blind": 1.76,
+  "conf": "high",
+  "split_ours": "LEVIR other, random or unstated split",
+  "split_blind": "Counts not stated: 256x256 non-overlap, 'randomly split' into train/val/test; details on HuggingFace hub",
+  "var_ours": "no - single run, fixed seed",
+  "var_blind": "no: single run, seed 8888",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "zhan2024amfnet",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.15,
+  "margin_blind": 1.15,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "256x256, 7:1:2 split = 7120/1024/2048 train/val/test",
+  "var_ours": "no",
+  "var_blind": "no - single numbers only; no seeds/std/CI/significance tests",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "zhao2024rsmamba",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.58,
+  "margin_blind": 0.58,
+  "conf": "high",
+  "split_ours": "LEVIR other, random or unstated split",
+  "split_blind": "non-overlapping 1024x1024 patches (whole images); split counts not stated (presumably official)",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported); ",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned (training aug: flip, trans"
+ },
+ {
+  "key": [
+   "bandara2025ddpmcd",
+   "LEVIR-CD"
+  ],
+  "issues": [
+   "proposed_iou: ours 83.35 vs blind 89.82",
+   "proposed_f1: ours 90.91 vs blind 94.39"
+  ],
+  "margin_ours": 0.87,
+  "margin_blind": 7.34,
+  "conf": "medium",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "not stated in WACV paper; arXiv v3: official 445/64/128 (printed as '44,564, 564, 128') cropped to 256x256 non-overlapping",
+  "var_ours": "no - caption says 'average quantitative ",
+  "var_blind": "no (caption says 'Average quantitative results' but no runs/",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "li2025faewnet",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.1,
+  "margin_blind": 0.1,
+  "conf": "medium",
+  "split_ours": "LEVIR other, random or unstated split",
+  "split_blind": "Counts not stated; training uses random 512x512 crops from 1024x1024 images (official partition implied)",
+  "var_ours": "no",
+  "var_blind": "no",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "paranjape2025mcd",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.7,
+  "margin_blind": 1.7,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "256x256 crops, 7120/1024/2048 (splits obtained from ChangeFormer)",
+  "var_ours": "yes - states p-value <= 1e-5 vs all othe",
+  "var_blind": "partial - text claims 'All results with M-CD have a p-value ",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "wu2025cdxlstm",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.37,
+  "margin_blind": 0.37,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "not stated in main text (deferred to Supplementary Material, not included in arXiv PDF)",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "yang2025changetitans",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.09,
+  "margin_blind": 0.09,
+  "conf": "high",
+  "split_ours": "LEVIR other, random or unstated split",
+  "split_blind": "not stated (sliding-window 256x256 crops; counts not given)",
+  "var_ours": "no",
+  "var_blind": "no (single values, no std/CI/significance in main table)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "yang2025ehctnet",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.37,
+  "margin_blind": 1.37,
+  "conf": "medium",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "LEVIR-CD 256x256, 7120/1024/2048",
+  "var_ours": "no",
+  "var_blind": "no",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "zhang2025cdmamba",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.31,
+  "margin_blind": 0.31,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "256x256 non-overlapping, 7120/1024/2048",
+  "var_ours": "no",
+  "var_blind": "no - single numbers only; no seeds/std/CI/significance tests",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "zheng2025changen2",
+   "LEVIR-CD"
+  ],
+  "issues": [
+   "competitor_f1: ours 92.0 vs blind 91.9",
+   "competitor: ours ChangeStar(1x256) ViT-B, SA-1B pre-trained (same-architecture baseline) vs blind BAN-BiT (selected by F1; no IoU in table)"
+  ],
+  "margin_ours": null,
+  "margin_blind": null,
+  "conf": "medium",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "official LEVIR-CD test set, inference on full 1024x1024 images; training on random 512x512 crops",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported)",
+  "tta_ours": "no (explicitly stated)",
+  "tta_blind": "no ('without any tricks')"
+ },
+ {
+  "key": [
+   "zhong2025tunet",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": null,
+  "margin_blind": null,
+  "conf": "medium",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "256x256 crops, random 7:1:2 = 7120/1024/2048",
+  "var_ours": "no",
+  "var_blind": "no (single values, no std/CI/significance in main table)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "cheng2026changedino",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.41,
+  "margin_blind": 0.41,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "LEVIR-CD 256x256 non-overlap, 7,120/1,024/2,048",
+  "var_ours": "no",
+  "var_blind": "no",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "dong2026peftcd",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.04,
+  "margin_blind": 0.04,
+  "conf": "high",
+  "split_ours": "LEVIR other, random or unstated split",
+  "split_blind": "445/128/64 original 1024x1024 image pairs; random 256x256 crops for training, sliding-window inference on full images",
+  "var_ours": "no",
+  "var_blind": "no - single numbers only; no seeds/std/CI/significance tests",
+  "tta_ours": "no (not mentioned); slidi",
+  "tta_blind": "no stated (sliding-window inference; ave"
+ },
+ {
+  "key": [
+   "tong2026semdino",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.79,
+  "margin_blind": 0.79,
+  "conf": "medium",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "standard 7120/1024/2048, 256x256 non-overlapping",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "wang2026next2formercd",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.4,
+  "margin_blind": 0.4,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "M-CD released pre-processing/splits, 256x256 non-overlapping (counts not stated)",
+  "var_ours": "no",
+  "var_blind": "no (single values, no std/CI/significance in main table)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "xie2026fsgnet",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.34,
+  "margin_blind": 0.34,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "LEVIR-CD 256x256, 7,120/1,024/2,048",
+  "var_ours": "no",
+  "var_blind": "no",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "yang2026changerwkv",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.19,
+  "margin_blind": 1.19,
+  "conf": "high",
+  "split_ours": "LEVIR other, random or unstated split",
+  "split_blind": "256x256 sliding-window crops following Open-CD (Li et al. 2024); split counts not stated",
+  "var_ours": "no",
+  "var_blind": "no - single numbers only; no seeds/std/CI/significance tests",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "zhang2026adadino",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": -0.1,
+  "margin_blind": -0.1,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "official split, 256x256 non-overlapping, 7120/1024/2048",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported) f",
+  "tta_ours": "no (explicitly stated)",
+  "tta_blind": "no (explicitly 'without test-time augmen"
+ },
+ {
+  "key": [
+   "zhu2026changevit",
+   "LEVIR-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.36,
+  "margin_blind": 1.36,
+  "conf": "high",
+  "split_ours": "LEVIR official split (256px crops or full 1024px images)",
+  "split_blind": "256x256, 7120/1024/2048",
+  "var_ours": "no",
+  "var_blind": "no (single values, no std/CI/significance in main table)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned (train aug flip/crop)"
+ },
+ {
+  "key": [
+   "chen2022bit",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.72,
+  "margin_blind": 0.72,
+  "conf": "high",
+  "split_ours": "WHU random 256px split 6096/762/762 (BIT)",
+  "split_blind": "256x256 non-overlapping crops, random split 6096/762/762",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "chen2022fccdn",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 4.11,
+  "margin_blind": 4.11,
+  "conf": "high",
+  "split_ours": "WHU other or unstated split",
+  "split_blind": "256x256 non-overlapping slices randomly split 7:1:2 train/val/test (following DDCNN); exact counts not given",
+  "var_ours": "yes - ablation table averaged over 3 run",
+  "var_blind": "no (single values, no std/CI/significance in main table)",
+  "tta_ours": "no (explicitly stated)",
+  "tta_blind": "no (explicitly stated)"
+ },
+ {
+  "key": [
+   "wang2022uvacd",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.74,
+  "margin_blind": 1.74,
+  "conf": "high",
+  "split_ours": "WHU official area-based train/test split",
+  "split_blind": "Non-standard: 256x256 non-overlap, 4491/498/2700 train/val/test (following ref [21], split by test-area range, 'fewer training samples'); Table 1",
+  "var_ours": "no - caption says 'average quantitative ",
+  "var_blind": "no: 'average quantitative results' in caption only; no std/r",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "xia2022egctnet",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.3,
+  "margin_blind": 1.3,
+  "conf": "high",
+  "split_ours": "WHU other or unstated split",
+  "split_blind": "Own split: 7680 non-overlapping 256x256 tiles randomly divided 7:2:1 train/test/val",
+  "var_ours": "no",
+  "var_blind": "no - single numbers only; no seeds/std/CI/significance tests",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "yan2022ftn",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.6,
+  "margin_blind": 1.6,
+  "conf": "high",
+  "split_ours": "WHU random 256px split 6096/762/762 (BIT)",
+  "split_blind": "256x256 non-overlapping crops, random split 6096/762/762",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "chen2023sarasnet",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 2.12,
+  "margin_blind": 2.12,
+  "conf": "high",
+  "split_ours": "WHU other or unstated split",
+  "split_blind": "256x256 non-overlapping patches 6690/744/744",
+  "var_ours": "no",
+  "var_blind": "no (single values, no std/CI/significance in main table)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "codegoni2023tinycd",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 12.35,
+  "margin_blind": 12.35,
+  "conf": "high",
+  "split_ours": "WHU random 256px split 5947/743/744",
+  "split_blind": "WHU-CD 256x256 non-overlap, random split 5947/743/744",
+  "var_ours": "no - single run with fixed random seed",
+  "var_blind": "no: single run, fixed seed",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "han2023cgnet",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.88,
+  "margin_blind": 0.88,
+  "conf": "high",
+  "split_ours": "WHU official area-based train/test split",
+  "split_blind": "WHU official 1260 train / 690 test tiles re-cropped to 256x256; 10% of train randomly held out as val -> 4536/504/2760 (NOT 6096/762/762)",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "han2023hanet",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.63,
+  "margin_blind": 0.63,
+  "conf": "high",
+  "split_ours": "WHU official area-based train/test split",
+  "split_blind": "WHU authors' 512x512 split (1260 train / 690 test) cropped to 256x256, 10% of train as val: 4536/504/2760",
+  "var_ours": "no",
+  "var_blind": "no (single values, no std/CI/significance in main table)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "han2023hcgmnet",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 7.14,
+  "margin_blind": 7.14,
+  "conf": "high",
+  "split_ours": "WHU official area-based train/test split",
+  "split_blind": "Non-standard WHU split: 256x256 non-overlap, 4536/504/2760",
+  "var_ours": "no",
+  "var_blind": "no",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "ma2023stnet",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.72,
+  "margin_blind": 0.72,
+  "conf": "high",
+  "split_ours": "WHU random 256px split 6096/762/762 (BIT)",
+  "split_blind": "256x256, random 6096/762/762",
+  "var_ours": "no",
+  "var_blind": "no (single values, no std/CI/significance in main table)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "wang2023apd",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 6.38,
+  "margin_blind": 6.38,
+  "conf": "high",
+  "split_ours": "WHU official area-based train/test split",
+  "split_blind": "'default cropping policy of size 512x512 and dataset split (train/test) provided by the authors' - no counts",
+  "var_ours": "no",
+  "var_blind": "no - single numbers only; no seeds/std/CI/significance tests",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "yan2023transynet",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 2.13,
+  "margin_blind": 2.13,
+  "conf": "high",
+  "split_ours": "WHU random 256px split 6096/762/762 (BIT)",
+  "split_blind": "256x256 non-overlapping, random split 6096/762/762",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "ye2023afcf3dnet",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 3.63,
+  "margin_blind": 3.63,
+  "conf": "high",
+  "split_ours": "WHU random 256px split 6096/762/762 (BIT)",
+  "split_blind": "256x256 non-overlapping, random 6096/762/762",
+  "var_ours": "no - ablation table averages test result",
+  "var_blind": "no (main table)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "zhao2023sgsln",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.99,
+  "margin_blind": 1.99,
+  "conf": "high",
+  "split_ours": "WHU other or unstated split",
+  "split_blind": "NON-standard: 256x256 non-overlapping crops, random 7:1:2 split following FCCDN (not 6096/762/762)",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "zhao2023vitadapter",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.9,
+  "margin_blind": 1.9,
+  "conf": "high",
+  "split_ours": "WHU other or unstated split",
+  "split_blind": "cropped to 256 following ChangeFormer; split counts not stated",
+  "var_ours": "no",
+  "var_blind": "no (single values, no std/CI/significance in main table)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "chang2024dsfernet",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 2.41,
+  "margin_blind": 2.41,
+  "conf": "high",
+  "split_ours": "WHU other or unstated split",
+  "split_blind": "Non-standard WHU split: 256x256 non-overlap, ratio 6:1:3 -> 4572/762/2286 (text says 8189 tiles; counts sum to 7620)",
+  "var_ours": "no",
+  "var_blind": "no",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "chen2024changemamba",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 2.02,
+  "margin_blind": 2.02,
+  "conf": "high",
+  "split_ours": "WHU official area-based train/test split",
+  "split_blind": "Official WHU train/test areas ('official protocol [66]'); 256x256 crops for training, full-size inference on test; no patch counts or val set stated",
+  "var_ours": "no",
+  "var_blind": "no",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "chen2024srcnet",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 3.18,
+  "margin_blind": 3.18,
+  "conf": "high",
+  "split_ours": "WHU other or unstated split",
+  "split_blind": "Own split: 256x256 non-overlapping crops, 5141 train / 2293 validation (no test set mentioned)",
+  "var_ours": "no",
+  "var_blind": "no - single numbers only; no seeds/std/CI/significance tests",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "ding2024samcd",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.92,
+  "margin_blind": 0.92,
+  "conf": "high",
+  "split_ours": "WHU random 256px split 6096/762/762 (BIT)",
+  "split_blind": "256x256 patches 6096/762/762 (following CTD-Former)",
+  "var_ours": "no",
+  "var_blind": "no (single values, no std/CI/significance in main table)",
+  "tta_ours": "yes - 8x flip TTA at infe",
+  "tta_blind": "YES: 8x flipping TTA"
+ },
+ {
+  "key": [
+   "dong2024efficientcd",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.3,
+  "margin_blind": 0.3,
+  "conf": "high",
+  "split_ours": "WHU random 256px split 6096/762/762 (BIT)",
+  "split_blind": "WHU-CD 256x256 non-overlap, random 6096/762/762",
+  "var_ours": "no",
+  "var_blind": "no",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "gan2024rflcdnet",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": null,
+  "margin_blind": null,
+  "conf": "high",
+  "split_ours": "WHU official area-based train/test split",
+  "split_blind": "Own split: train image 21243x15354 / test image 11265x15354, 256x256 non-overlapping -> 4980 train / 2700 test (no val)",
+  "var_ours": "no",
+  "var_blind": "no - single numbers only; no seeds/std/CI/significance tests",
+  "tta_ours": "no (not mentioned); model",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "ma2024cdmask",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 3.36,
+  "margin_blind": 3.36,
+  "conf": "high",
+  "split_ours": "WHU random 256px split 6096/762/762 (BIT)",
+  "split_blind": "WHU-CD 256x256, random 6096/762/762",
+  "var_ours": "yes - Fig. 1 plots median and standard d",
+  "var_blind": "partial: 5 seeds in Fig. 1 only; table single values",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "ma2024ddlnet",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 3.54,
+  "margin_blind": 3.54,
+  "conf": "high",
+  "split_ours": "WHU random 256px split 6096/762/762 (BIT)",
+  "split_blind": "256x256 crops randomly divided 6096/762/762 (following BIT)",
+  "var_ours": "no",
+  "var_blind": "no - single numbers only; no seeds/std/CI/significance tests",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "noman2024scratchformer",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.04,
+  "margin_blind": 1.04,
+  "conf": "medium",
+  "split_ours": "WHU random 256px split 5947/743/744",
+  "split_blind": "WHU-CD 256x256 non-overlap, 5947/743/744",
+  "var_ours": "no",
+  "var_blind": "no",
+  "tta_ours": "no (not mentioned); input",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "wen2024gcdddpm",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.68,
+  "margin_blind": 0.68,
+  "conf": "high",
+  "split_ours": "WHU random 256px split 6096/762/762 (BIT)",
+  "split_blind": "256x256 non-overlapping, random 6096/762/762",
+  "var_ours": "no",
+  "var_blind": "no (single values, no std/CI/significance in main table)",
+  "tta_ours": "no (not mentioned); itera",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "zhao2024rsmamba",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.87,
+  "margin_blind": 0.87,
+  "conf": "high",
+  "split_ours": "WHU other or unstated split",
+  "split_blind": "NON-standard: non-overlapping 1024x1024 patches, random 7:1:2 split",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "bandara2025ddpmcd",
+   "WHU-CD"
+  ],
+  "issues": [
+   "proposed_iou: ours 86.31 vs blind 90.51",
+   "proposed_f1: ours 92.65 vs blind 94.8",
+   "competitor_iou: ours 84.21 vs blind 89.02",
+   "competitor_f1: ours 91.43 vs blind 92.23",
+   "competitor: ours DT-SCN vs blind MambaCD-Base"
+  ],
+  "margin_ours": 2.1,
+  "margin_blind": 1.49,
+  "conf": "medium",
+  "split_ours": "WHU other or unstated split",
+  "split_blind": "not stated in WACV paper; arXiv v3: 256x256 non-overlapping patches, counts not given",
+  "var_ours": "no - caption says 'average quantitative ",
+  "var_blind": "no",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "li2025faewnet",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.77,
+  "margin_blind": 0.77,
+  "conf": "medium",
+  "split_ours": "WHU other or unstated split",
+  "split_blind": "256x256 non-overlap following Bandara & Patel (ChangeFormer); counts not given",
+  "var_ours": "no",
+  "var_blind": "no",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "paranjape2025mcd",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 2.9,
+  "margin_blind": 2.9,
+  "conf": "high",
+  "split_ours": "WHU random 256px split 5947/743/744",
+  "split_blind": "256x256 crops, 5947/743/744 train/val/test (from ChangeFormer/DDPM-CD)",
+  "var_ours": "yes - states p-value <= 1e-5 vs all othe",
+  "var_blind": "partial - unsupported p-value claim (<=1e-5), no repeated ru",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "wu2025cdxlstm",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.89,
+  "margin_blind": 0.89,
+  "conf": "medium",
+  "split_ours": "WHU other or unstated split",
+  "split_blind": "not stated in main text (deferred to Supplementary Material, not in arXiv PDF)",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "yang2025changetitans",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": -1.52,
+  "margin_blind": -1.52,
+  "conf": "high",
+  "split_ours": "WHU other or unstated split",
+  "split_blind": "not stated",
+  "var_ours": "no",
+  "var_blind": "no (single values, no std/CI/significance in main table)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "zhang2025cdmamba",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.71,
+  "margin_blind": 1.71,
+  "conf": "high",
+  "split_ours": "WHU random 256px split 6096/762/762 (BIT)",
+  "split_blind": "256x256 patches, 6096/762/762",
+  "var_ours": "no",
+  "var_blind": "no - single numbers only; no seeds/std/CI/significance tests",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "zhong2025tunet",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": null,
+  "margin_blind": null,
+  "conf": "medium",
+  "split_ours": "WHU random 256px split 6096/762/762 (BIT)",
+  "split_blind": "256x256 crops, random 8:1:1 = 6096/762/762",
+  "var_ours": "no",
+  "var_blind": "no (single values, no std/CI/significance in main table)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "cheng2026changedino",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.2,
+  "margin_blind": 1.2,
+  "conf": "high",
+  "split_ours": "WHU official area-based train/test split",
+  "split_blind": "Non-standard WHU split: 4,536/504/2,760 (256x256, following Han et al. 2023)",
+  "var_ours": "no",
+  "var_blind": "no",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "dong2026peftcd",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 1.32,
+  "margin_blind": 1.32,
+  "conf": "high",
+  "split_ours": "WHU random 256px split 6096/762/762 (BIT)",
+  "split_blind": "256x256 non-overlapping patches, ~6096/762/762",
+  "var_ours": "no",
+  "var_blind": "no - single numbers only; no seeds/std/CI/significance tests",
+  "tta_ours": "no (not mentioned); slidi",
+  "tta_blind": "no stated"
+ },
+ {
+  "key": [
+   "tong2026semdino",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": -0.11,
+  "margin_blind": -0.11,
+  "conf": "medium",
+  "split_ours": "WHU official area-based train/test split",
+  "split_blind": "4536/504/2760 (256x256 crops)",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "wang2026next2formercd",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.3,
+  "margin_blind": 0.3,
+  "conf": "high",
+  "split_ours": "WHU random 256px split 5947/743/744",
+  "split_blind": "M-CD splits, 256x256 (counts not stated)",
+  "var_ours": "no",
+  "var_blind": "no (single values, no std/CI/significance in main table)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "wu2026cdlamba",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.77,
+  "margin_blind": 0.77,
+  "conf": "medium",
+  "split_ours": "WHU random 256px split 6096/762/762 (BIT)",
+  "split_blind": "256x256 crops, random split 6096/762/762 (following BIT)",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned (training aug: flip, blur)"
+ },
+ {
+  "key": [
+   "yang2026changerwkv",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 0.72,
+  "margin_blind": 0.72,
+  "conf": "high",
+  "split_ours": "WHU other or unstated split",
+  "split_blind": "256x256 sliding-window crops following Open-CD; split counts not stated",
+  "var_ours": "no",
+  "var_blind": "no - single numbers only; no seeds/std/CI/significance tests",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ },
+ {
+  "key": [
+   "zhang2026adadino",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": -1.03,
+  "margin_blind": -1.03,
+  "conf": "high",
+  "split_ours": "WHU random 256px split 6096/762/762 (BIT)",
+  "split_blind": "256x256 non-overlapping, 6096/762/762",
+  "var_ours": "no",
+  "var_blind": "no (single numbers, no std/CI/significance tests reported)",
+  "tta_ours": "no (explicitly stated)",
+  "tta_blind": "no (explicitly 'without test-time augmen"
+ },
+ {
+  "key": [
+   "zhu2026changevit",
+   "WHU-CD"
+  ],
+  "issues": [],
+  "margin_ours": 4.54,
+  "margin_blind": 4.54,
+  "conf": "high",
+  "split_ours": "WHU random 256px split 5947/743/744",
+  "split_blind": "256x256 non-overlapping, 5947/744/744 (following ICIFNet)",
+  "var_ours": "no",
+  "var_blind": "no (single values, no std/CI/significance in main table)",
+  "tta_ours": "no (not mentioned)",
+  "tta_blind": "not mentioned"
+ }
+]

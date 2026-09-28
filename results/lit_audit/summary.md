@@ -82,3 +82,35 @@ WHU-CD, by publication year: 2022-2023 median 1.94 (n=16); 2024-2026 median 1.04
 - **No open-access full text** (IEEE Xplore/Elsevier paywall and no arXiv version; Semantic Scholar lists them as closed): ChangeCLIP (ISPRS P&RS 2024), DMINet (TGRS 2023), ICIF-Net (TGRS 2022), A2Net (TGRS 2023), SEIFNet (TGRS 2024), AERNet (TGRS 2023), BiFA (TGRS 2024), WNet (TGRS 2023), DARNet (TGRS 2022), CSTSUNet (TGRS 2023), P2V-CD (TIP 2023), AMTNet (ISPRS P&RS 2023), SNUNet-CD (IEEE GRSL). SNUNet-CD's dataset coverage could not be checked without the full text.
 - **Could not identify:** "MSCCA-Net". No paper with this name reporting LEVIR-CD/WHU-CD was found. The closest match was Mamba-MSCCA-Net (Displays, 2025), which was not accessed.
 - **Out of scope after reading:** LCD-Net (JSTARS 2025) reports LEVIR-CD+, not LEVIR-CD. ChangeMamba's LEVIR-CD+ table is not used; only its WHU-CD row is kept. ChangeStar's IJCV 2024 extension (single-temporal supervision) uses LEVIR-CD/WHU-CD only for zero-shot or generalization tests. Changen2's WHU-CD results are zero-shot only. BAN's WHU-CD results are semi-supervised only. SiamixFormer uses WHU only for building extraction. L-UNet (arXiv 2026) is a 2020 paper. "A Change Detection Reality Check" and "Be the Change" are method-audit papers, cited above but not counted.
+
+## Update 2026-09-28: blind re-extraction and one correction
+
+All 101 rows were re-extracted from the original papers by a second, independent pass that did not see this table
+(`blind_reextraction.json`; row-by-row comparison in `blind_comparison.json`). 97 rows agree on all four numbers and on
+the strongest competitor. Of the other four, SiamixFormer (LEVIR-CD) agrees once the impossible FDOR-Net row
+(IoU above F1) is skipped as recorded here, and Changen2 (LEVIR-CD, F1 only) differs only in the choice of competitor.
+
+Correction: both DDPM-CD rows now use the published WACV 2025 version (Table 1, IN1k variant) instead of arXiv
+2206.11892v3, which is a differently titled version with a different table. The WACV paper does not state its split, so
+the LEVIR-CD row moved to "LEVIR other, random or unstated split". The statistics above were computed before this
+change and are kept for the record; the paper uses the values recomputed by `analysis/paper_numbers.py` from
+`claims.csv`.
+
+Rows that decide the paper's statements are listed for manual verification in `verification_checklist.md`.
+
+Further corrections on 2026-09-28, after checking the 12 open-access papers against their published versions
+(`published_version_check.json`; 20 of 21 rows identical): SMDNet LEVIR-CD F1 corrected to the published 89.17, and
+SRC-Net LEVIR-CD moved to the unstated-split group because its published version describes only training and validation
+sets. After checking 29 papers against their published versions, ScratchFormer was also corrected to its published TGRS numbers
+(LEVIR-CD 84.63/91.68, WHU-CD 84.97/91.87). Current LEVIR-CD official-split figures: 40 papers, median margin 0.90 IoU
+points, 21 below one point.
+
+## Published-version check completed 2026-09-28
+
+All 50 formally published papers in the audit were checked against their published versions (82 rows,
+`published_version_check.json`), each table read blind from a rendered page image. The remaining 12 papers are arXiv
+preprints and were read from arXiv. Corrections made to `claims.csv`: DDPM-CD (published table, split not stated),
+ScratchFormer (IoU and F1), SMDNet (F1), MaskCD (published table reports change-class IoU), and the competitor of three
+F1-only rows (Changer, LSAT, Changen2). SRC-Net was moved out of the official split because it reports validation
+results. Final LEVIR-CD official-split figures: 40 papers, median margin 0.90, 21 below one point, 7 below the MDD;
+highest proposed IoU 86.51. WHU-CD 6096/762/762 split: all 13 margins below the MDD, largest 3.63.

@@ -43,7 +43,7 @@ See the paper for the power analysis of the WHU-CD test split and the audit of 6
 | `splits/` | Train/validation/test lists for LEVIR-CD and WHU-CD (256x256 patches) |
 | `results/` | All cached evaluation outputs used in the paper |
 | `results/per_image_csv/` | Per-image confusion counts of every model as CSV |
-| `results/lit_audit/` | The literature audit (62 papers) with the extraction rules |
+| `results/lit_audit/` | The literature audit (62 papers) with the extraction rules, two independent extractions (`claims.csv`, `blind_reextraction.json`), and the check of all 50 formally published papers against their published tables (`published_version_check.json`) |
 | `RUNS.md` | Hardware, software, seed, and checkpoint epoch of every trained model |
 
 ## Reproducing the numbers of the paper
