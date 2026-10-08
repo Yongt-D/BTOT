@@ -1,7 +1,7 @@
 # On the Limited Role of Bitemporal Fusion Operators in Remote Sensing Change Detection with Vision Foundation Models
 
 Code, configurations, data splits, and per-image results for the paper of the same title
-(Deng, Lei, Zhang, Peng, and Li; submitted to IEEE JSTARS).
+(Deng, Lei, Zhang, Peng, and Li; submitted to IEEE Transactions on Geoscience and Remote Sensing).
 
 **About this repository.** It first described BTOT, a bitemporal optimal-transport operator that we proposed as an
 improvement over feature differencing. When we compared the operator with a difference module, window cross-attention
@@ -115,7 +115,7 @@ paper, and the configurations and seeds above retrain each model.
   title   = {On the Limited Role of Bitemporal Fusion Operators in Remote Sensing Change Detection
              with Vision Foundation Models},
   author  = {Deng, Yongtao and Lei, Dajiang and Zhang, Liping and Peng, Yidong and Li, Weisheng},
-  journal = {Submitted to IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing},
+  journal = {Submitted to IEEE Transactions on Geoscience and Remote Sensing},
   year    = {2026}
 }
 ```
