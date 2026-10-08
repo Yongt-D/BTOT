@@ -357,6 +357,59 @@ for ds in mdd_range:
     put(f'{ds}.mdd.lo', mdd_range[ds][0])
     put(f'{ds}.mdd.hi', mdd_range[ds][1])
 
+# ---------------------------------------------------------------- qualitative examples, chosen by rule from the per-image counts
+QUAL_DIR = 'results/qual'
+lev_keys = [(op, s) for op, _ in OPS for s in SEEDS]                 # the eight operator models, Table II order
+Ltp = np.stack([levir[k][:, VIEW_ID, 0] for k in lev_keys], 1)
+Lfp = np.stack([levir[k][:, VIEW_ID, 1] for k in lev_keys], 1)
+Lfn = np.stack([levir[k][:, VIEW_ID, 2] for k in lev_keys], 1)
+Lgt, Lerr, Liou = Ltp[:, 0] + Lfn[:, 0], Lfp + Lfn, Ltp / np.maximum(Ltp + Lfp + Lfn, 1)
+qual = {}
+cand = np.where(Lgt >= 3000)[0]                                   # (a) all eight accurate and alike
+qual['a'] = cand[np.argmax(Liou[cand].mean(1) - 2 * (Liou[cand].max(1) - Liou[cand].min(1)))]
+e3 = Lerr.reshape(len(Lgt), len(OPS), len(SEEDS))
+seed_dis, op_dis = np.abs(e3[:, :, 0] - e3[:, :, 1]).mean(1), (e3.max(1) - e3.min(1)).mean(1)
+cand = np.where(Lgt >= 500)[0]                                    # (b) seed disagreement exceeds operator disagreement
+qual['b'] = cand[np.argmax((seed_dis - op_dis)[cand])]
+# (c) the largest object missed entirely by all eight models whose reference mask does not touch the patch border
+# (border-cut fragments are artefacts of the tiling). The bounding boxes are read from the reference masks when the
+# dataset is present and cached in QUAL_DIR/levir_allmiss_bbox.json, which is released, so the choice is reproducible.
+cand = np.where((Ltp.max(1) == 0) & (Lgt > 0))[0]
+bbox_file = os.path.join(QUAL_DIR, 'levir_allmiss_bbox.json')
+if os.path.isdir('data_dir/LEVIR-CD/label'):
+    from PIL import Image as _Image
+    bbox = {}
+    for i in cand:
+        ys, xs = np.nonzero(np.array(_Image.open(os.path.join('data_dir/LEVIR-CD/label', lev_names[i])).convert('L')) > 0)
+        bbox[lev_names[i]] = [int(xs.min()), int(xs.max()), int(ys.min()), int(ys.max())]
+    os.makedirs(QUAL_DIR, exist_ok=True)
+    with open(bbox_file, 'w', encoding='utf-8', newline='\n') as f:
+        json.dump(bbox, f, indent=1, sort_keys=True)
+else:
+    with open(bbox_file, encoding='utf-8') as f:
+        bbox = json.load(f)
+inner = [i for i in cand if (lambda b: b[0] > 0 and b[2] > 0 and b[1] < 255 and b[3] < 255)(bbox[lev_names[i]])]
+qual['c'] = inner[int(np.argmax(Lgt[inner]))]
+cand = np.where((Ltp[:, 0] == 0) & (Lgt > 0) & (Ltp[:, 1:] > 0).all(1))[0]   # (d) only the difference model (seed 42) misses
+qual['d'] = cand[np.argmax(Lgt[cand])]
+for k, i in qual.items():
+    put(f'qual.levir.{k}', lev_names[i][:-4].replace('_', '\\_'), '{}')
+    put(f'qual.levir.{k}.gt', int(Lgt[i]), '{}')
+put('qual.levir.b.seeddis', seed_dis[qual['b']], '{:.0f}')
+put('qual.levir.b.opdis', op_dis[qual['b']], '{:.0f}')
+put('qual.levir.a.iou.min', Liou[qual['a']].min() * 100, '{:.1f}')
+put('qual.levir.a.iou.max', Liou[qual['a']].max() * 100, '{:.1f}')
+put('qual.levir.d.tp.max', int(Ltp[qual['d'], 1:].max()), '{}')
+ea, eb = A[:, VIEW_TTA, 1] + A[:, VIEW_TTA, 2], B[:, VIEW_TTA, 1] + B[:, VIEW_TTA, 2]
+whu_top5 = np.argsort(-np.abs(ea - eb))[:5]                         # the five images of Section V-B, TTA errors
+for j, i in enumerate(whu_top5):
+    put(f'qual.whu.{j + 1}', whu_names[i][:-4], '{}')
+    put(f'qual.whu.{j + 1}.gt', int(A[i, VIEW_TTA, 0] + A[i, VIEW_TTA, 2]), '{}')
+with open(os.path.join(QUAL_DIR, 'levir_list.txt'), 'w', encoding='utf-8', newline='\n') as f:
+    f.write(''.join(lev_names[qual[k]] + '\n' for k in 'abcd'))
+with open(os.path.join(QUAL_DIR, 'whu_list.txt'), 'w', encoding='utf-8', newline='\n') as f:
+    f.write(''.join(whu_names[i] + '\n' for i in whu_top5))
+
 with open(os.path.join(OUT, 'gen', 'tab_power.tex'), 'w', encoding='utf-8') as f:
     for ds, name in (('whu', 'WHU-CD'), ('levir', 'LEVIR-CD')):
         for p, unit in ((power[ds], 'patch'), (cpower[ds], 'block' if ds == 'whu' else 'image')):
@@ -782,4 +835,64 @@ axes[1].set_xlabel('claimed IoU margin over the strongest competitor (points)')
 fig.tight_layout(h_pad=0.6)
 fig.savefig(os.path.join(OUT, 'figs', 'audit.pdf'))
 plt.close(fig)
+
+# qualitative examples: TP white, FP red, FN blue (single-pass predictions from analysis/qual_preds.py)
+from PIL import Image  # noqa: E402
+
+TP_C, FP_C, FN_C = (255, 255, 255), (228, 50, 50), (50, 110, 230)
+
+
+def error_map(label, pred):
+    rgb = np.zeros(label.shape + (3,), np.uint8)
+    rgb[label & pred] = TP_C
+    rgb[~label & pred] = FP_C
+    rgb[label & ~pred] = FN_C
+    return rgb
+
+
+def qual_figure(ds, names, columns, out_name, row_labels):
+    """columns: list of (title, kind, arg): kind 'rgb' (A or B folder), 'ref', or 'pred' (model dir, view)."""
+    root = os.path.join('data_dir', ds)
+    if not os.path.isdir(root):
+        print(f'{out_name}: {root} not found, figure skipped')
+        return False
+    for _, kind, arg in columns:
+        if kind == 'pred' and not all(os.path.isfile(os.path.join(QUAL_DIR, arg[0], n[:-4] + f'_{arg[1]}.png')) for n in names):
+            print(f'{out_name}: predictions of {arg[0]} missing, figure skipped')
+            return False
+    nr, nc = len(names), len(columns)
+    cell = 7.16 / nc
+    fig, axes = plt.subplots(nr, nc, figsize=(7.16, cell * nr + 0.18), squeeze=False)
+    for r, n in enumerate(names):
+        label = np.array(Image.open(os.path.join(root, 'label', n)).convert('L')) > 0
+        for c, (title, kind, arg) in enumerate(columns):
+            ax = axes[r, c]
+            if kind == 'rgb':
+                ax.imshow(Image.open(os.path.join(root, arg, n)).convert('RGB'))
+            elif kind == 'ref':
+                ax.imshow(error_map(label, label))
+            else:
+                prob = np.array(Image.open(os.path.join(QUAL_DIR, arg[0], n[:-4] + f'_{arg[1]}.png')))
+                ax.imshow(error_map(label, prob >= 128))
+            ax.set_xticks([])
+            ax.set_yticks([])
+            for s in ax.spines.values():
+                s.set_linewidth(0.3)
+            if r == 0:
+                ax.set_title(title, fontsize=5.5, pad=2)
+            if c == 0:
+                ax.set_ylabel(row_labels[r], fontsize=5.5)
+    fig.subplots_adjust(left=0.02, right=0.995, top=0.95, bottom=0.005, wspace=0.04, hspace=0.04)
+    fig.savefig(os.path.join(OUT, 'figs', out_name))
+    plt.close(fig)
+    return True
+
+
+lev_cols = [('$\\mathbf{I}^1$', 'rgb', 'A'), ('$\\mathbf{I}^2$', 'rgb', 'B'), ('reference', 'ref', None)]
+lev_cols += [(f'{short_name[op]} s{s}', 'pred', (f'{op}_levir_neutral_s{s}', 'id')) for op, s in lev_keys]
+qual_figure('LEVIR-CD', [lev_names[qual[k]] for k in 'abcd'], lev_cols, 'qual_levir.pdf', [f'({k})' for k in 'abcd'])
+whu_cols = [('$\\mathbf{I}^1$', 'rgb', 'A'), ('$\\mathbf{I}^2$', 'rgb', 'B'), ('reference', 'ref', None),
+            ('Difference, single', 'pred', ('diff_neutral', 'id')), ('Difference, TTA', 'pred', ('diff_neutral', 'tta')),
+            ('BTOT, single', 'pred', ('btot_neutral', 'id')), ('BTOT, TTA', 'pred', ('btot_neutral', 'tta'))]
+qual_figure('WHU-CD', [whu_names[i] for i in whu_top5], whu_cols, 'qual_whu.pdf', [whu_names[i][:-4] for i in whu_top5])
 print('figures written')
