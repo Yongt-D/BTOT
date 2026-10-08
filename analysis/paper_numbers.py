@@ -452,6 +452,7 @@ put('audit.whu.n', len(whu_m), '{}')
 put('audit.whu.median', float(np.median(whu_m)))
 put('audit.whu.max', float(whu_m.max()))
 put('audit.whu.below_mdd', int((whu_m < whu_mdd).sum()), '{}')
+put('audit.levir.below_mdd.lo', int((lev_m < mdd_range['levir'][0]).sum()), '{}')   # below the smallest MDD over pairs
 put('audit.levir.below_mdd.hi', int((lev_m < mdd_range['levir'][1]).sum()), '{}')   # below the largest MDD over pairs
 put('audit.whu.below_mdd.lo', int((whu_m < mdd_range['whu'][0]).sum()), '{}')       # below the smallest MDD over pairs
 put('audit.whuall.n', len(whu_all), '{}')
