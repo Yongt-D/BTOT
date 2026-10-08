@@ -10,6 +10,7 @@ Outputs: paper/JSTARS_v2/gen/{numbers.tex, tab_levir.tex, tab_power.tex} and
 paper/JSTARS_v2/figs/{forest.pdf, tail.pdf, similarity.pdf}.
 Usage (repo root): python analysis/paper_numbers.py [N_BOOT]
 """
+import itertools
 import json
 import os
 import sys
@@ -270,11 +271,97 @@ for ds, ca, cb in (('whu', A, B), ('levir', levir[('btot', 42)], levir[('diff', 
     put(f'{ds}.ci.half', 1.96 * sed * 100)
 put('power.se.ratio', power['whu']['se1'] / power['levir']['se1'], '{:.1f}')
 put('power.sed.ratio', power['whu']['sed'] / power['levir']['sed'], '{:.0f}')
+
+# ---------------------------------------------------------------- spatial dependence of test patches, MDD over model pairs
+# LEVIR-CD test patches are 256 px tiles of 128 source images (test_<img>_<r>_<c>.png); WHU-CD patches are tiles of
+# one 127 x 60 tiling (img<k>.png, k zero-based, row-major). Resample source images / 8 x 8-tile blocks instead of patches.
+BLOCK = 8
+
+
+def read_names(ds):
+    return [l.strip() for l in open(f'splits/{ds}/test.txt', encoding='utf-8') if l.strip()]
+
+
+lev_names, whu_names = read_names('LEVIR-CD'), read_names('WHU-CD')
+assert len(lev_names) == n_levir and len(whu_names) == n_whu
+lev_grp = np.array([int(n.split('_')[1]) for n in lev_names])
+whu_k = np.array([int(n[3:-4]) for n in whu_names])
+assert whu_k.min() >= 0 and whu_k.max() < 127 * 60
+whu_grp = (whu_k // 127 // BLOCK) * 1000 + (whu_k % 127 // BLOCK)
+
+
+def cluster_weights(groups, b):
+    """Resample whole clusters with replacement; per-image weights [b, N]."""
+    u, inv = np.unique(groups, return_inverse=True)
+    w = np.stack([np.bincount(RNG.integers(0, len(u), len(u)), minlength=len(u)) for _ in range(b)]).astype(np.float64)
+    return w[:, inv], len(u)
+
+
+def jk_loo_cluster(c, groups):
+    """Delete-one-cluster IoU of one view's counts [N, 3]."""
+    u = np.unique(groups)
+    tot = c.sum(0)
+    rest = tot - np.stack([c[groups == x].sum(0) for x in u])
+    return rest[:, 0] / np.maximum(rest.sum(1), 1)
+
+
+Wc, n_lev_cl = cluster_weights(lev_grp, N_BOOT)
+Wb, n_whu_bl = cluster_weights(whu_grp, N_BOOT)
+put('levir.n_clusters', n_lev_cl, '{}')
+put('whu.n_blocks', n_whu_bl, '{}')
+put('whu.block', BLOCK, '{}')
+for op, _ in OPS[1:] + [ABLATION]:                       # seed-averaged single-pass difference, cluster bootstrap
+    ref = 'btot' if op == ABLATION[0] else 'diff'
+    def smean(o):
+        ks = [(o, s) for s in SEEDS if (o, s) in levir]
+        return np.mean([boot_iou(levir[k], Wc, VIEW_ID) for k in ks], axis=0)
+    s = smean(op) - smean(ref)
+    put(f'levir.{op}.delta.id.clo', np.percentile(s, 2.5) * 100, '{:+.2f}')
+    put(f'levir.{op}.delta.id.chi', np.percentile(s, 97.5) * 100, '{:+.2f}')
+for view, vi in (('id', VIEW_ID), ('tta', VIEW_TTA)):      # WHU BTOT vs difference, block bootstrap
+    s = boot_iou(A, Wb, vi) - boot_iou(B, Wb, vi)
+    put(f'whu.btotdiff.{view}.blo', np.percentile(s, 2.5) * 100, '{:+.2f}')
+    put(f'whu.btotdiff.{view}.bhi', np.percentile(s, 97.5) * 100, '{:+.2f}')
+
+cpower = {}
+for ds, ca, cb, grp in (('whu', A, B, whu_grp), ('levir', levir[('btot', 42)], levir[('diff', 42)], lev_grp)):
+    g = ca[:, VIEW_ID, 0] + ca[:, VIEW_ID, 2]
+    u = np.unique(grp)
+    gc = np.array([g[grp == x].sum() for x in u])
+    la, lb = jk_loo_cluster(ca[:, VIEW_ID, :], grp), jk_loo_cluster(cb[:, VIEW_ID, :], grp)
+    se1, sed = (jk_se(la) + jk_se(lb)) / 2, jk_se(la - lb)
+    cpower[ds] = dict(n=len(u), nchg=int((gc > 0).sum()), top10=np.sort(gc)[::-1][:10].sum() / gc.sum(), se1=se1, sed=sed)
+    put(f'{ds}.se.single.cluster', se1 * 100)
+    put(f'{ds}.se.diff.cluster', sed * 100)
+    put(f'{ds}.mdd.cluster', 2.80 * sed * 100)
+
+# MDD of every pair of matched-recipe operator models (not only BTOT vs difference, seed 42)
+lev_models = {k: v for k, v in levir.items() if k[0] != ABLATION[0]}
+whu_models = {'btot_neutral': A, 'diff_neutral': B, 'diff_neutral_s123': whu['diff_neutral_s123']}
+for ds, models, grp, unit in (('levir', lev_models, lev_grp, 'cluster'), ('whu', whu_models, whu_grp, 'block')):
+    for lab, g in (('', np.arange(len(grp))), (f'.{unit}', grp)):
+        v = [2.80 * jk_se(jk_loo_cluster(ca[:, VIEW_ID, :], g) - jk_loo_cluster(cb[:, VIEW_ID, :], g)) * 100
+             for ca, cb in itertools.combinations(models.values(), 2)]
+        put(f'{ds}.mdd.pairs{lab}.min', min(v))
+        put(f'{ds}.mdd.pairs{lab}.max', max(v))
+        put(f'{ds}.mdd.pairs{lab}.median', float(np.median(v)))
+    put(f'{ds}.mdd.pairs.n', len(v), '{}')
+g0 = np.arange(n_whu)
+put('whu.mdd.diffdiff', 2.80 * jk_se(jk_loo_cluster(B[:, VIEW_ID, :], g0) - jk_loo_cluster(whu['diff_neutral_s123'][:, VIEW_ID, :], g0)) * 100)
+put('whu.mdd.btot_diff123', 2.80 * jk_se(jk_loo_cluster(A[:, VIEW_ID, :], g0) - jk_loo_cluster(whu['diff_neutral_s123'][:, VIEW_ID, :], g0)) * 100)
+# overall range over pairs and resampling units, used for the audit comparison and the shaded band of the audit figure
+mdd_range = {ds: (min(float(numbers[f'{ds}.mdd.pairs.min']), float(numbers[f'{ds}.mdd.pairs.{u}.min'])),
+                  max(float(numbers[f'{ds}.mdd.pairs.max']), float(numbers[f'{ds}.mdd.pairs.{u}.max'])))
+             for ds, u in (('levir', 'cluster'), ('whu', 'block'))}
+for ds in mdd_range:
+    put(f'{ds}.mdd.lo', mdd_range[ds][0])
+    put(f'{ds}.mdd.hi', mdd_range[ds][1])
+
 with open(os.path.join(OUT, 'gen', 'tab_power.tex'), 'w', encoding='utf-8') as f:
     for ds, name in (('whu', 'WHU-CD'), ('levir', 'LEVIR-CD')):
-        p = power[ds]
-        f.write(f"{name} & {p['n']} & {p['nchg']} & {p['top10'] * 100:.1f} & {p['se1'] * 100:.2f} & "
-                f"{p['sed'] * 100:.2f} & {2.80 * p['sed'] * 100:.2f} \\\\\n")
+        for p, unit in ((power[ds], 'patch'), (cpower[ds], 'block' if ds == 'whu' else 'image')):
+            f.write(f"{name}, {unit} & {p['n']} & {p['nchg']} & {p['top10'] * 100:.1f} & {p['se1'] * 100:.2f} & "
+                    f"{p['sed'] * 100:.2f} & {2.80 * p['sed'] * 100:.2f} \\\\\n")
 
 # ---------------------------------------------------------------- earlier recipe on WHU-CD (confounds)
 old = {}
@@ -365,6 +452,8 @@ put('audit.whu.n', len(whu_m), '{}')
 put('audit.whu.median', float(np.median(whu_m)))
 put('audit.whu.max', float(whu_m.max()))
 put('audit.whu.below_mdd', int((whu_m < whu_mdd).sum()), '{}')
+put('audit.levir.below_mdd.hi', int((lev_m < mdd_range['levir'][1]).sum()), '{}')   # below the largest MDD over pairs
+put('audit.whu.below_mdd.lo', int((whu_m < mdd_range['whu'][0]).sum()), '{}')       # below the smallest MDD over pairs
 put('audit.whuall.n', len(whu_all), '{}')
 put('audit.whuall.median', float(np.median(whu_all)))
 lev_prop = np.array([float(r['proposed_iou']) for r in claims
@@ -674,9 +763,11 @@ plt.close(fig)
 
 # claimed margins in the literature against the minimum detectable difference of each test split
 fig, axes = plt.subplots(2, 1, figsize=(3.45, 2.3))
-for ax, m, mdd, c, title in ((axes[0], lev_m, lev_mdd, 'C0', f'LEVIR-CD, official split ({len(lev_m)} papers)'),
-                             (axes[1], whu_m, whu_mdd, 'C3', f'WHU-CD, 6096/762/762 split ({len(whu_m)} papers)')):
-    ax.axvspan(-mdd, mdd, color=c, alpha=0.15, lw=0)
+for ax, m, mdd, c, title in ((axes[0], lev_m, mdd_range['levir'], 'C0', f'LEVIR-CD, official split ({len(lev_m)} papers)'),
+                             (axes[1], whu_m, mdd_range['whu'], 'C3', f'WHU-CD, 6096/762/762 split ({len(whu_m)} papers)')):
+    ax.axvspan(-mdd[1], mdd[1], color=c, alpha=0.10, lw=0)     # largest MDD over model pairs and resampling units
+    ax.axvspan(-mdd[0], mdd[0], color=c, alpha=0.18, lw=0)     # smallest
+    mdd = mdd[1]
     ax.axvline(0, color='k', lw=0.6, ls='--')
     jit = np.random.default_rng(1).uniform(-0.3, 0.3, len(m))
     ax.scatter(m, jit, s=9, color=c, edgecolor='none', alpha=0.85)
