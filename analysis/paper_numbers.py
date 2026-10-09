@@ -167,6 +167,48 @@ for view in ('id', 'vmean', 'tta'):
         put(f'levir.{op}.delta.{view}.hi2', (d + half) * 100, '{:+.2f}')
         put(f'levir.{op}.delta.{view}.df', df, '{:.1f}')
 
+# Sensitivity of the training-variance interval to the pooling assumption (single pass): instead of pooling sigma^2
+# over the four operators, use (a) only the two operators being compared, (b) the largest single-operator variance
+# for both operators. Fewer runs enter the estimate, so the t quantile grows with the smaller df.
+s2_op = {op: (stats[(op, 42)]['id'] - stats[(op, 123)]['id']) ** 2 / 2
+         for op, _ in OPS if all((op, s) in stats for s in SEEDS)}
+op_max = max(s2_op, key=s2_op.get)
+put('levir.train.sd.max', np.sqrt(s2_op[op_max]) * 100)
+put('levir.train.sd.max.op', short_name[op_max], '{}')
+for op, _ in OPS[1:]:
+    if (op, 'id') not in dsmp:
+        continue
+    for tag, s2v, dfv in (('pair', (s2_op[op] + s2_op['diff']) / 2, 2), ('max', s2_op[op_max], 1)):
+        vt = s2v * (1 / seedmean[(op, 'id')][2] + 1 / seedmean[('diff', 'id')][2])
+        vb = float(dsmp[(op, 'id')].var(ddof=1))
+        df = dfv * (1 + vb / vt) ** 2
+        half = t_dist.ppf(0.975, df) * np.sqrt(vb + vt)
+        d = delta[(op, 'id')][0]
+        put(f'levir.{op}.delta.id.{tag}.lo2', (d - half) * 100, '{:+.2f}')
+        put(f'levir.{op}.delta.id.{tag}.hi2', (d + half) * 100, '{:+.2f}')
+        put(f'levir.{op}.delta.id.{tag}.df', df, '{:.1f}')
+    put(f'levir.train.sd.pair.{op}', np.sqrt((s2_op[op] + s2_op['diff']) / 2) * 100)
+
+# The dustbin ablation (seed 42 only) against the full BTOT trained with the same seed, same image-bootstrap weights
+if (ABLATION[0], 42) in levir and ('btot', 42) in levir:
+    s2_pool = float(np.mean(list(s2_op.values())))
+    for view, vi in (('id', VIEW_ID), ('vmean', None), ('tta', VIEW_TTA)):
+        if vi is None:
+            sa = np.mean([boot_iou(levir[(ABLATION[0], 42)], W, v) for v in range(4)], axis=0)
+            sb = np.mean([boot_iou(levir[('btot', 42)], W, v) for v in range(4)], axis=0)
+        else:
+            sa, sb = boot_iou(levir[(ABLATION[0], 42)], W, vi), boot_iou(levir[('btot', 42)], W, vi)
+        d = stats[(ABLATION[0], 42)][view] - stats[('btot', 42)][view]
+        smp = sa - sb
+        put(f'levir.btot_nodustbin.delta42.{view}', d * 100, '{:+.2f}')
+        put(f'levir.btot_nodustbin.delta42.{view}.lo', np.percentile(smp, 2.5) * 100, '{:+.2f}')
+        put(f'levir.btot_nodustbin.delta42.{view}.hi', np.percentile(smp, 97.5) * 100, '{:+.2f}')
+        vt, vb = s2_pool * 2, float(smp.var(ddof=1))
+        df = len(s2_op) * (1 + vb / vt) ** 2
+        half = t_dist.ppf(0.975, df) * np.sqrt(vb + vt)
+        put(f'levir.btot_nodustbin.delta42.{view}.lo2', (d - half) * 100, '{:+.2f}')
+        put(f'levir.btot_nodustbin.delta42.{view}.hi2', (d + half) * 100, '{:+.2f}')
+
 for op, _ in OPS:
     if all((op, s) in stats for s in SEEDS):
         put(f'levir.{op}.seedrange', abs(stats[(op, 42)]['id'] - stats[(op, 123)]['id']) * 100)
