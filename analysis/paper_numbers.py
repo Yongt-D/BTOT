@@ -189,6 +189,47 @@ for op, _ in OPS[1:]:
         put(f'levir.{op}.delta.id.{tag}.df', df, '{:.1f}')
     put(f'levir.train.sd.pair.{op}', np.sqrt((s2_op[op] + s2_op['diff']) / 2) * 100)
 
+# ---------------------------------------------------------------- power planning: Var(n, N) = (N0/N)(a + b/n) + 2 sigma^2/n
+# a: test-sampling variance shared by the two operators (what remains after averaging infinitely many seeds), estimated
+# as the bootstrap covariance between differences formed from independent seed pairs; b: the seed-specific per-image
+# part, variance of a single-seed difference minus a; sigma^2: pooled seed variance of the pooled IoU (as above).
+# MDD(n, N) = 2.80 sqrt(Var). On LEVIR-CD a is indistinguishable from zero; on WHU-CD it is almost all of the variance.
+def pair_diff(ca, cb, w):
+    return (boot_iou(ca, w, VIEW_ID) - boot_iou(cb, w, VIEW_ID)) * 100
+
+plan = {}
+s2p = float(np.mean(list(s2_op.values()))) * 1e4              # pooled seed variance, IoU fractions -> pts^2
+for op, _ in OPS[1:]:
+    if not all((o, s) in levir for o in (op, 'diff') for s in SEEDS):
+        continue
+    d_same = [pair_diff(levir[(op, s)], levir[('diff', s)], W) for s in SEEDS]
+    d_cross = [pair_diff(levir[(op, 42)], levir[('diff', 123)], W), pair_diff(levir[(op, 123)], levir[('diff', 42)], W)]
+    cov = (np.cov(d_same[0], d_same[1])[0, 1] + np.cov(d_cross[0], d_cross[1])[0, 1]) / 2
+    var1 = float(np.mean([x.var(ddof=1) for x in d_same + d_cross]))
+    a, b = max(float(cov), 0.0), var1 - max(float(cov), 0.0)
+    plan[op] = (a, b)
+    put(f'plan.levir.{op}.var1', var1, '{:.4f}')
+    put(f'plan.levir.{op}.cov', float(cov), '{:+.4f}')
+    put(f'plan.levir.{op}.a', a, '{:.4f}')
+    put(f'plan.levir.{op}.b', b, '{:.4f}')
+    put(f'plan.levir.{op}.share', a / var1 * 100, '{:.0f}')
+    put(f'plan.levir.{op}.pred2', a + b / 2, '{:.4f}')           # model prediction of the seed-averaged variance at n=2
+    put(f'plan.levir.{op}.obs2', float(((d_same[0] + d_same[1]) / 2).var(ddof=1)), '{:.4f}')
+put('plan.levir.sigma2', s2p, '{:.4f}')
+
+
+def mdd_n(a, b, s2, n, scale=1.0):
+    return 2.80 * np.sqrt(scale * (a + b / n) + 2 * s2 / n)
+
+
+a_b, b_b = plan['btot']
+for n in (1, 2, 3, 4, 6, 8, 10):
+    put(f'plan.levir.btot.mdd.n{n}', mdd_n(a_b, b_b, s2p, n))
+put('plan.levir.btot.half.n2', 1.96 * np.sqrt(a_b + b_b / 2 + s2p))       # predicted 95% half-width of the seed-averaged difference
+put('plan.levir.btot.half.n4', 1.96 * np.sqrt(a_b + b_b / 4 + 2 * s2p / 4))
+for tgt in ('1.0', '0.5', '0.3', '0.2'):
+    den = (float(tgt) / 2.80) ** 2 - a_b
+    put(f'plan.levir.btot.seeds.for{tgt}', (b_b + 2 * s2p) / den if den > 0 else float('inf'), '{:.1f}')
 # The dustbin ablation (seed 42 only) against the full BTOT trained with the same seed, same image-bootstrap weights
 if (ABLATION[0], 42) in levir and ('btot', 42) in levir:
     s2_pool = float(np.mean(list(s2_op.values())))
@@ -298,6 +339,24 @@ for view, vi in (('id', VIEW_ID), ('tta', VIEW_TTA)):
     keep[np.argsort(-gap)[:5]] = False
     put(f'whu.btotdiff.{view}.drop5', (iou(A[keep].sum(0))[vi] - iou(B[keep].sum(0))[vi]) * 100, '{:+.2f}')
     put(f'whu.btotdiff.{view}.top10share', np.sort(gap)[::-1][:10].sum() / gap.sum() * 100, '{:.1f}')
+
+# power planning on WHU-CD: only one BTOT seed, so the covariance of the two differences against the two
+# difference-operator seeds bounds a from above (the shared BTOT model contributes to it); sigma^2 from the difference seeds.
+e = [pair_diff(A, whu[m], Ww) for m in ('diff_neutral', 'diff_neutral_s123')]
+cov_w, var_w = float(np.cov(e[0], e[1])[0, 1]), float(np.mean([x.var(ddof=1) for x in e]))
+a_w, b_w = max(cov_w, 0.0), var_w - max(cov_w, 0.0)
+s2_w = (wstats['diff_neutral']['id'] - wstats['diff_neutral_s123']['id']) ** 2 / 2 * 1e4
+put('plan.whu.var1', var_w, '{:.2f}')
+put('plan.whu.a', a_w, '{:.2f}')
+put('plan.whu.b', b_w, '{:.2f}')
+put('plan.whu.share', a_w / var_w * 100, '{:.0f}')
+put('plan.whu.floor', 2.80 * np.sqrt(a_w))
+for n in (1, 2, 4, 10):
+    put(f'plan.whu.mdd.n{n}', mdd_n(a_w, b_w, s2_w, n))
+for tgt, n in (('2.0', 3), ('1.0', 10)):
+    den = (float(tgt) / 2.80) ** 2 - 2 * s2_w / n
+    put(f'plan.whu.images.for{tgt}.n{n}', n_whu * (a_w + b_w / n) / den if den > 0 else float('inf'), '{:.0f}')
+put('plan.whu.images.for2.0.n3.ratio', (a_w + b_w / 3) / ((2.0 / 2.80) ** 2 - 2 * s2_w / 3), '{:.0f}')
 
 # ---------------------------------------------------------------- power of the two test sets
 power = {}
@@ -876,6 +935,32 @@ for ax, m, mdd, c, title in ((axes[0], lev_m, mdd_range['levir'], 'C0', f'LEVIR-
 axes[1].set_xlabel('claimed IoU margin over the strongest competitor (points)')
 fig.tight_layout(h_pad=0.6)
 fig.savefig(os.path.join(OUT, 'figs', 'audit.pdf'))
+plt.close(fig)
+
+# power planning: minimum detectable difference against the number of seeds per operator
+fig, axes = plt.subplots(1, 2, figsize=(3.45, 1.75))
+ns = np.arange(1, 11)
+for op, c in (('btot', 'C3'), ('hbca', 'C0'), ('ssm', 'C2')):
+    if op in plan:
+        a_, b_ = plan[op]
+        axes[0].plot(ns, [mdd_n(a_, b_, s2p, n) for n in ns], '-o', ms=2.2, lw=1, color=c, label=f'{short_name[op]} vs. difference')
+axes[0].axhline(2.80 * np.sqrt(a_b), color='k', lw=0.6, ls='--')
+axes[0].set_title('LEVIR-CD (2048 patches)', fontsize=7.5, loc='left', pad=2)
+axes[0].set_ylim(0, None)
+axes[0].legend(fontsize=5.5, frameon=False)
+axes[1].plot(ns, [mdd_n(a_w, b_w, s2_w, n) for n in ns], '-o', ms=2.2, lw=1, color='C3', label='BTOT vs. difference')
+axes[1].axhline(2.80 * np.sqrt(a_w), color='k', lw=0.6, ls='--', label='shared-noise floor')
+axes[1].set_title('WHU-CD (762 patches)', fontsize=7.5, loc='left', pad=2)
+axes[1].set_ylim(0, None)
+axes[1].legend(fontsize=5.5, frameon=False)
+for ax in axes:
+    ax.set_xlabel('seeds per operator', fontsize=7)
+    ax.set_xticks([1, 2, 4, 6, 8, 10])
+    ax.tick_params(labelsize=6.5)
+    ax.grid(lw=0.3, alpha=0.5)
+axes[0].set_ylabel('MDD (IoU points)', fontsize=7)
+fig.tight_layout(w_pad=0.8)
+fig.savefig(os.path.join(OUT, 'figs', 'plan.pdf'))
 plt.close(fig)
 
 # qualitative examples: TP white, FP red, FN blue (single-pass predictions from analysis/qual_preds.py)
